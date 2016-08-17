@@ -1,0 +1,34 @@
+#profile-image {
+    display: block;
+    border-radius: 100px;
+    border: 1px solid #fff;
+    width: 64px;
+    height: 64px;
+    margin: 5px auto 0;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+}
+
+.edit-icon {
+    float: right;
+    margin-top: -6px;
+    height: 10px !important;
+    min-height: 35px;
+}
+
+.edit-icon:before {
+    font-size: 18px !important;
+}
+
+.classificacao th {
+    font-weight: bold;
+}
+
+
+.classificacao tr,
+.classificacao th,
+.classificacao td {
+    border: 1px solid #ccc;
+    padding: 3px;
+    width: 10%;
+    text-align: center;
+}
