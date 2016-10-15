@@ -1,0 +1,61 @@
+<ion-view view-title="RelatorioAluno">
+<ion-content class="padding">
+	 
+    <h3>Informações aluno: </h3>
+    <p>Aluno: {{aluno.nome}}</p>
+    <p>RG: {{aluno.rg}}</p>
+    <p>Data de nascimento: {{aluno.dataNascimento | date: 'dd/MM/yyyy'}}</p>
+    
+
+    <h3>Informações teste: </h3>
+    <p>Total questôes: {{teste.perguntas.length}}</p>
+    <p>Quantidade acertos: {{qtdCorretas}}</p>
+    <p>Porcentagem acertos: {{porcentagemCorretas}}%</p>
+
+    <br>
+
+    <div class="item item-divider">Perguntas</div>
+    <ion-list>
+      <ion-item ng-style="isCorrect(pergunta)" ng-repeat="pergunta in teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
+          <p>{{pergunta.nome}}</p>
+                <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      </ion-item>
+    </ion-list>
+
+    <!-- Modal para adicionar participante ao grupo -->
+        <script id="visualizar-pergunta.html" type="text/ng-template">
+            <ion-modal-view view title="Criar pergunta">
+            <ion-content class="padding">
+                <div class="list list-inset">
+                <div class="item item-divider">Pergunta: </div>
+                <label class="item item-input">
+                    <input type="text" placeholder="Nome da pergunta" ng-model="perguntaSelecionada.nome"/>
+                </div>
+
+                <ion-scroll align="center">
+                    <img ng-src="data:image/jpg;base64,{{imagemPergunta}}" ng-show="imagemPergunta" height="200px"/>
+                </ion-scroll>
+
+                <div class="list list-inset">
+                <div class="item item-divider">Alternativa correta: </div>
+                <label class="item item-input">
+                    <input type="text" ng-model="perguntaSelecionada.alternativas[perguntaSelecionada.alternativaCorreta].nome"/>
+                </div>
+
+                <div class="list list-inset">
+                <div class="item item-divider">Resposta aluno: </div>
+                <label class="item item-input">
+                    <input type="text" ng-model="respostaAluno.nome"/>
+                </div>
+
+                <button class="button button-block button-calm" ng-click="voltar()">Voltar</button>
+             
+            </ion-content>
+            </ion-modal-view>
+        </script>
+
+
+    <button class="button button-block button-calm" ng-click="voltarTestes()">Voltar</button>
+
+  </ion-content>
+</ion-view>

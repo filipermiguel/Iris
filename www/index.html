@@ -7,9 +7,13 @@
     
         <link href="lib/ionic/css/ionic.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="lib/angularjs-slider/dist/rzslider.css" />
     
         <script src="lib/jquery/jquery-2.1.4.min.js"></script>
         <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+        <script src="lib/ui-select/dist/select.js"></script>
+        <script src="lib/angularjs-slider/dist/rzslider.js"></script>   
         <script src="cordova.js"></script>
     
         <!-- your app's js -->
@@ -17,19 +21,29 @@
         
         <!-- Services -->
         <script src="js/services/userService.js"></script>
+        <script src="js/services/testeService.js"></script>
+        <script src="js/services/alunoService.js"></script>
 
         <!-- Controllers -->
         <script src="js/ctrl/login.js"></script>
         <script src="js/ctrl/perfil.js"></script>
         <script src="js/ctrl/testes.js"></script>
+        <script src="js/ctrl/cadastroTeste.js"></script>
+        <script src="js/ctrl/escolhaTeste.js"></script>
+        <script src="js/ctrl/realizaTeste.js"></script>
+        <script src="js/ctrl/cadastroAluno.js"></script>
+        <script src="js/ctrl/escolhaAluno.js"></script>
+        <script src="js/ctrl/relatorios.js"></script>
+        <script src="js/ctrl/escolhaAlunoRelatorio.js"></script>
+        <script src="js/ctrl/relatorioAluno.js"></script>
+        <script src="js/ctrl/escolhaTesteRelatorio.js"></script>
         
     </head>
     <body ng-app="Iris">
-  
-        <ion-nav-bar class="bar-stable">
+        <!--<ion-nav-bar class="bar-stable">
           <ion-nav-back-button>
           </ion-nav-back-button>
-        </ion-nav-bar>
+        </ion-nav-bar>-->
   
         <ion-nav-view></ion-nav-view>
     </body>

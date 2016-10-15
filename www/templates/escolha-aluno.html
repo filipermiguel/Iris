@@ -1,0 +1,19 @@
+<ion-view view-title="EscolhaAluno">
+	<ion-content class="padding">
+	<div>
+      	<input type="search" placeholder="Digite o nome..." ng-model="formData.search">
+      	<button ng-if="formData.search.length" class="button button-icon ion-android-close input-button" ng-click="clearSearch()"></button>
+  	</div>
+
+     <div class="list">
+        <a class="item  my-item" collection-repeat="aluno in alunos | orderBy:'nome' | searchAlunos:formData.search" collection-item-height="60" ng-click="chooseTest(aluno)">
+          <img ng-src="http://placekitten.com/60/{{55 + ($index % 10)}}">
+          <p>Nome: {{aluno.nome}}</p>
+          <p>RG: {{aluno.rg}}</p>
+          <p>Nascimento: {{aluno.dataNascimento | date: 'dd/MM/yyyy'}}</p>
+        </a>
+     </div>  
+
+	</ion-content>
+</ion-view>
+	

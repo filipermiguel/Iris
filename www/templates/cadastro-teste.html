@@ -1,0 +1,70 @@
+<ion-view name="cadastrarTeste" view-title="{{viewTitle}}">
+	<ion-content class="padding">
+		<div class="list list-inset">
+            <div class="item item-divider">Nome: </div>
+            <label class="item item-input">
+			<input type="text" ng-model="teste.nome">
+		</div>
+            
+        <div class="list list-inset">
+            <div class="item item-divider">Perguntas: </div>
+           
+            <!-- lista perguntas -->
+            <ion-item class="item-remove-animate" ng-repeat="pergunta in teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
+        		<p>{{pergunta.nome}}</p>
+		    </ion-item>
+
+            <button class="button icon icon-right ion-android-add" ng-click="addPergunta()" style="margin-bottom: 5px; margin-top: 1px; width: 100%;">
+                Adicionar pergunta
+            </button>
+        </div>
+
+		<button class="button button-block button-calm" ng-click="salvar()" type="submit">Salvar</button>
+            
+            
+        <!-- Modal para adicionar participante ao grupo -->
+        <script id="add-pergunta-teste.html" type="text/ng-template">
+            <ion-modal-view view title="Criar pergunta">
+                <ion-header-bar>
+                    <h1 class="title">{{testeSelecionado.nome}}</h1>
+                </ion-header-bar>
+            <ion-content class="padding">
+                <div class="list list-inset">
+                <div class="item item-divider">Pergunta: </div>
+                <label class="item item-input">
+                    <input type="text" placeholder="Nome da pergunta" ng-model="perguntaSelecionada.nome"/>
+                </div>
+
+                <button class="button button-block button-calm" ng-click="addImage()">Adicionar imagem</button>
+
+                <ion-scroll align="center">
+                    <img ng-src="data:image/jpg;base64,{{perguntaSelecionada.imagem}}" ng-show="perguntaSelecionada.imagem" height="200px"/>
+                </ion-scroll>
+
+               <div class="list list-inset">
+                    <div class="item item-divider">Alternativas: </div>
+
+                    <!-- lista alternativas -->
+                    <ion-item class="item-remove-animate" ng-repeat="alternativa in perguntaSelecionada.alternativas" type="item-text-wrap">
+                        <!-- <p>{{alternativa.nome}}</p> -->
+                        <input type="radio" ng-model="alternativaSelecionada.index" name="nome" ng-value="(( $index ))"/>{{alternativa.nome}}
+                    </ion-item>
+            
+                    <!-- Adicionar alternativa -->
+                    <label class="item item-input">
+                        <input type="text" placeholder="Descrição alternativa" ng-model="novaAlternativa.nome">
+                    </label>
+                    <button class="button icon icon-right ion-android-add" ng-click="addAlternativa()" style="margin-bottom: 5px; margin-top: 1px; width: 100%;">
+                        Adicionar alternativa
+                    </button>
+                   
+                    <button class="button icon icon-right" ng-click="okPergunta()" style="margin-top: 10px; width: 100%;">
+                        Ok
+                    </button>
+                </div>
+             
+            </ion-content>
+            </ion-modal-view>
+        </script>
+	</ion-content>
+</ion-view>

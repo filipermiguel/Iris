@@ -1,0 +1,38 @@
+<ion-view view-title="EscolhaTesteRelatorio">
+<ion-content class="padding">
+
+    <div class="list list-inset">
+      <div class="item item-divider">Teste: </div>
+      <div>
+        <ui-select tagging ng-model="data2.selected" theme="bootstrap">
+        <ui-select-match placeholder="Escolha um teste...">{{$select.selected.nome}}</ui-select-match>
+        <ui-select-choices repeat="teste in testes | orderBy:'nome' | filter: $select.search track by teste.nome">
+            <a class="item  my-item" ng-click="clickTeste(teste)">
+              <p>{{teste.nome}}</p>
+            </a>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    
+    <h4>Aproveitamento:</h4>
+    <div>
+      <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+    </div>
+
+    <div class="list list-inset">
+      <div class="item item-divider">Data inicial: </div>
+      <label class="item item-input">
+      <input type="date" ng-model="periodo.dataInicial"/>
+    </div>
+
+    <div class="list list-inset">
+      <div class="item item-divider">Data final: </div>
+      <label class="item item-input">
+      <input type="date" ng-model="periodo.dataFinal"/>
+    </div>
+
+    <button class="button button-block button-calm" ng-click="showReport()">Informações teste</button>
+
+  </ion-content>
+</ion-view>

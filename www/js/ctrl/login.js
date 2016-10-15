@@ -4,13 +4,13 @@ Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPop
 	 
     
     if (UserService.getUser()) {
-        $state.go("tab.perfil");
+        $state.go("testes");
     };
 
     $scope.login = function() {
         UserService.login($scope.loginData.nome, $scope.loginData.senha).success(function(user) {
             UserService.saveUser(user);
-            $state.go("tab.perfil");
+            $state.go("testes");
         }).error(function(data) {
             $ionicLoading.hide();
             $ionicPopup.alert({
@@ -23,7 +23,7 @@ Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPop
     $scope.register = function() {
     	UserService.criarUsuario($scope.registerData.nome, $scope.registerData.senha).success(function(user) {
             UserService.saveUser(user);
-            $state.go("tab.perfil");
+            $state.go("testes");
         }).error(function(data) {
             $ionicLoading.hide();
             $ionicPopup.alert({
