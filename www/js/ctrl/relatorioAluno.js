@@ -1,7 +1,5 @@
 Iris.controller('RelatorioAlunoCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicModal, Testes) {
 
-	$scope.aluno = $state.params.aluno;
-	$scope.teste = $state.params.teste;
 	$scope.resultado = $state.params.resultado;
 	$scope.infoResultado = JSON.parse($scope.resultado.resultado);
 	$scope.perguntaSelecionada = {};
@@ -49,7 +47,7 @@ Iris.controller('RelatorioAlunoCtrl', function($scope, $stateParams, $rootScope,
 
 		$scope.respostaAluno = alternativa[0];
 
-        Testes.getImagemPergunta($scope.teste.id, $scope.perguntaSelecionada.id).success(function(imagem) {
+        Testes.getImagemPergunta($scope.resultado.teste.id, $scope.perguntaSelecionada.id).success(function(imagem) {
            $scope.imagemPergunta = imagem;
         });
 

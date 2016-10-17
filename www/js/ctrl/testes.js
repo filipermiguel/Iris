@@ -17,6 +17,10 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $http, 
 		$state.go('cadastro-teste');
     }
 
+    $scope.removerTeste = function(teste) {
+        Testes.removerTeste(teste);
+    }
+
     $scope.execute = function() {
         $ionicLoading.show({hideOnStateChange: true});
 		$state.go('escolha-aluno');

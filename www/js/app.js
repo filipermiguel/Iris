@@ -1,7 +1,7 @@
 //var serverAddress = "http://irisserver-iris.rhcloud.com";
 var serverAddress = "http://192.168.0.12:8081/iris-server";
 
-Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule'])
+Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js' ])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -86,8 +86,6 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule'])
         templateUrl: 'templates/relatorio-aluno.html',
         controller: 'RelatorioAlunoCtrl',
         params: {
-            aluno: null,
-            teste: null,
             resultado: null
         }
     })
@@ -96,6 +94,32 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule'])
         url: '/escolha-teste-relatorio',
         templateUrl: 'templates/escolha-teste-relatorio.html',
         controller: 'EscolhaTesteRelatorioCtrl'
+    })    
+    .state('escolha-resultado-relatorio', {
+        cache: false,
+        url: '/escolha-resultado-relatorio',
+        templateUrl: 'templates/escolha-resultado-relatorio.html',
+        controller: 'EscolhaResultadoRelatorioCtrl',
+        params: {
+            teste: null,
+            aproveitamento: { minimo: null, maximo: null},
+            periodo: { inicio: null, fim: null}
+        }
+    })
+    .state('escolha-historico-aluno-relatorio', {
+        cache: false,
+        url: '/escolha-historico-aluno-relatorio',
+        templateUrl: 'templates/escolha-historico-aluno-relatorio.html',
+        controller: 'EscolhaHistoricoAlunoRelatorioCtrl'
+    })
+    .state('historico-aluno-relatorio', {
+        cache: false,
+        url: '/historico-aluno-relatorio',
+        templateUrl: 'templates/historico-aluno-relatorio.html',
+        controller: 'HistoricoAlunoRelatorioCtrl',
+        params: {
+            historicoResultados: []
+        }
     });
 
     // if none of the above states are matched, use this as the fallback

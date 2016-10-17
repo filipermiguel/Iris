@@ -1,11 +1,15 @@
-Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, Testes) {
+Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading, Testes) {
 
 	var today = new Date();
 	var todayz = new Date();
 	todayz.setFullYear(todayz.getFullYear() - 1);
 	var oneYearAgo = todayz;
 
-	$scope.slider = {
+    $scope.data = {
+        selected: null
+    };
+
+    $scope.slider = {
         minValue: 20,
         maxValue: 80,
         options: {
@@ -19,16 +23,16 @@ Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $roo
     };
 
     $scope.periodo = {
-    	dataInicial: oneYearAgo,
-    	dataFinal: today
+    	inicio: oneYearAgo,
+    	fim: today
     };
 
-	Testes.getTestes().success(function(testes) {
-		$scope.testes = testes;
-	});
+    Testes.getTestes().success(function(testes) {
+        $scope.testes = testes;
+    });
 
-	$scope.showReport = function(){
-		$ionicLoading.show({hideOnStateChange: true});
-		//$state.go('relatorio-aluno', { aluno: $scope.aluno, teste: $scope.studentTest, resultado: $scope.data3.selected });
-	}
+    $scope.showReport = function(){
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('escolha-resultado-relatorio', { teste: $scope.data.selected, aproveitamento: { minimo: $scope.slider.minValue, maximo: $scope.slider.maxValue }, periodo: $scope.periodo });
+    }
 })

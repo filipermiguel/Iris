@@ -10,4 +10,9 @@ Iris.controller('RelatoriosCtrl', function($scope, $stateParams, $rootScope, $ht
 		$state.go('escolha-teste-relatorio');
     }
 
+    $scope.studentHistoricByTest = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+		$state.go('escolha-historico-aluno-relatorio');
+    }
+
 });

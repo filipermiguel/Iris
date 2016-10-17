@@ -42,4 +42,22 @@ Iris.service('Testes', ['$http', function ($http) {
 		return $http.post(urlBase + "salvarResultado", resultadoTeste);
 	};
 
+	this.retornarResultados = function(teste, aproveitamento, periodo) {
+		var query = "";
+		if(aproveitamento){
+			query = "aproveitamentoMinimo=" + aproveitamento.minimo + "&aproveitamentoMaximo=" + aproveitamento.maximo;
+		}
+		if(periodo){
+			if(aproveitamento){
+				query = query + "&";
+			}
+			//date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
+			query = query + "inicio=" + periodo.inicio.getFullYear() + "-" + (periodo.inicio.getMonth() + 1)  + "-" + periodo.inicio.getDate() + //
+			"&fim=" + periodo.fim.getFullYear() + "-" + (periodo.fim.getMonth() + 1) + "-" + periodo.fim.getDate();
+		}
+
+
+		return $http.get(urlBase + teste.id + "/resultados" + (query ? "?" + query : ""));
+	};
+
 }]);
