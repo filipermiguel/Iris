@@ -1,7 +1,7 @@
 //var serverAddress = "http://irisserver-iris.rhcloud.com";
 var serverAddress = "http://192.168.0.12:8081/iris-server";
 
-Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js' ])
+Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages' ])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
