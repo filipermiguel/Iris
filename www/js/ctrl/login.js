@@ -1,5 +1,6 @@
 Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPopup, $ionicLoading, $state) {
-	$scope.loginData = {};
+	
+    $scope.loginData = {};
 	$scope.registerData = {};
 	 
     

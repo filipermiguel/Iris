@@ -8,14 +8,6 @@
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
 }
 
-.select2 > .select2-choice.ui-select-match {
-    height: 29px;
-}
-
-.selectize-control > .selectize-dropdown {
-    top: 36px;
-}
-
 .range-slider {
     position: relative;
     height: 80px;

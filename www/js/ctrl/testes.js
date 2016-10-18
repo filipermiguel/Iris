@@ -1,4 +1,4 @@
-Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading, Testes) {
+Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state, $ionicLoading, Testes) {
 	
 	Testes.getTestes().success(function(testes) {
         $scope.testes = testes;
@@ -17,8 +17,9 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $http, 
 		$state.go('cadastro-teste');
     }
 
-    $scope.removerTeste = function(teste) {
-        Testes.removerTeste(teste);
+    $scope.removerTeste = function(teste, index) {
+        $scope.testes.splice(index, 1);
+        Testes.removerTeste(teste.id);
     }
 
     $scope.execute = function() {
@@ -34,6 +35,11 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $http, 
     $scope.reports = function() {
         $ionicLoading.show({hideOnStateChange: true});
         $state.go('relatorios');
+    }
+
+    $scope.cadastrarUsuario = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('cadastro-usuario');
     }
 
 });

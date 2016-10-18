@@ -15,7 +15,8 @@ Iris.controller('RelatorioAlunoCtrl', function($scope, $stateParams, $rootScope,
 		}
 
 		$scope.qtdCorretas = qtdCorretas;
-		$scope.porcentagemCorretas = (qtdCorretas / $scope.infoResultado.length) * 100; 
+		var aproveitamento = (qtdCorretas / $scope.infoResultado.length) * 100; 
+		$scope.porcentagemCorretas = parseFloat(Math.round(aproveitamento * 100) / 100).toFixed(2); 
 	}
 
 	$ionicModal.fromTemplateUrl('visualizar-pergunta.html', { scope: $scope }).then(function(modal) {

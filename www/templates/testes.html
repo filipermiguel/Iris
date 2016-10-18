@@ -6,8 +6,7 @@
 		<ion-list>
 			<ion-item class="item-remove-animate item-icon-right" ng-repeat="teste in testes" type="item-text-wrap" href="#/cadastro-teste/{{teste.id}}">
         		<p>{{teste.nome}}</p>
-                <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-    		    <ion-option-button class="button-assertive" ng-click="removerTeste(teste.id)">Remover</ion-option-button>
+    		    <ion-option-button class="button-assertive" ng-click="removerTeste(teste, (( $index )))">Remover</ion-option-button>
             </ion-item>
         </ion-list>
         
@@ -20,6 +19,8 @@
         <button class="button button-block button-calm" ng-click="execute()" type="submit">Executar teste</button>
 
         <button class="button button-block button-calm" ng-click="reports()" type="submit">Relatórios</button>
+
+        <button class="button button-block button-calm" ng-click="cadastrarUsuario()" type="submit">Cadastrar usuário</button
         
 	</ion-content>
 </ion-view>

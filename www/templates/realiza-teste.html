@@ -14,11 +14,10 @@
             
         <div class="list list-inset">
             <div class="item item-divider">Alternativas: </div>
-           
-            <!-- lista alternativas -->
-            <ion-item class="item-remove-animate" ng-repeat="alternativa in perguntaAtual.alternativas" type="item-text-wrap">
-                <input type="radio" ng-model="alternativaSelecionada.index" name="nome" ng-value="(( $index ))"/>{{alternativa.nome}}
-             </ion-item>
+
+             <ion-list>
+                <ion-radio ng-repeat="alternativa in perguntaAtual.alternativas" ng-value="(( $index ))" ng-model="alternativaSelecionada.index" name="nome" [color]="lightgreen">{{alternativa.nome}}</ion-radio>
+            </ion-list>
         </div>
 
 		<button class="button button-block button-calm" ng-click="proximaPergunta()" type="submit">Próxima Pergunta</button>
