@@ -1,16 +1,15 @@
 <ion-view view-title="EscolhaAlunoRelatorio">
-<ion-content class="padding">
-	  
-    <!-- Lista de testes -->
-    <div class="item item-divider">Escolha o resultado: </div>
-    <ion-list>
-      <ion-item class="item-remove-animate item-icon-right" ng-repeat="resultado in resultados" type="item-text-wrap" ng-click="viewStudentResult(resultado)">
-        <p>Nome: {{resultado.aluno.nome}}</p>
-        <p>Data: {{resultado.data}}</p>
-      </ion-item>
-    </ion-list>
-
-    <button class="button button-block button-calm" ng-click="voltar()">Voltar</button>
-
-  </ion-content>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Relatório teste</h1>
+    </div>
+    <ion-content class="padding has-header">
+        <h3 style="text-align: center;">Resultados</h3>
+        <ion-list>
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="resultado in resultados | orderBy: ['aluno.nome','resultado.data']" type="item-text-wrap" ng-click="viewStudentResult(resultado)">
+                <p>Nome: {{resultado.aluno.nome}}</p>
+                <p>Data: {{resultado.data | date: 'dd/MM/yyyy'}}</p>
+            </ion-item>
+        </ion-list>
+        <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>
+    </ion-content>
 </ion-view>

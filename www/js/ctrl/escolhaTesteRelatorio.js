@@ -5,7 +5,7 @@ Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $roo
 	todayz.setFullYear(todayz.getFullYear() - 1);
 	var oneYearAgo = todayz;
 
-    $scope.data = {
+    $scope.searchTeste = {
         selected: null
     };
 
@@ -33,6 +33,11 @@ Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $roo
 
     $scope.showReport = function(){
         $ionicLoading.show({hideOnStateChange: true});
-        $state.go('escolha-resultado-relatorio', { teste: $scope.data.selected, aproveitamento: { minimo: $scope.slider.minValue, maximo: $scope.slider.maxValue }, periodo: $scope.periodo });
+        $state.go('escolha-resultado-relatorio', { teste: $scope.searchTeste.selected, aproveitamento: { minimo: $scope.slider.minValue, maximo: $scope.slider.maxValue }, periodo: $scope.periodo });
+    }
+
+    $scope.voltar = function(){
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('relatorios');
     }
 })

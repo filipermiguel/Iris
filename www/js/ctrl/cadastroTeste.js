@@ -151,4 +151,8 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
         return true;
     }
 
+    $scope.cancelar = function(){
+        $state.go('testes');
+    }
+
 });

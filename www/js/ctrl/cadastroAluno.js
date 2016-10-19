@@ -14,4 +14,8 @@ Iris.controller('CadastroAlunoCtrl', function($scope, $state, $stateParams, $ion
 		AlunoService.criarAluno($scope.aluno).success(successFunction);
 	}
 
+    $scope.cancelar = function(){
+        $state.go('testes');
+    }
+    
 });

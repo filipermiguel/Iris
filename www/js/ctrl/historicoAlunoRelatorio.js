@@ -13,7 +13,7 @@ Iris.controller('HistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $r
 		scaleStartValue: 0, 
 		scaleSteps: 10, 
 		scaleStepWidth: 10,
-		bezierCurve: true,
+		bezierCurve: false,
 		pointDotRadius :10,
 		onAnimationComplete: function () {
             var ctx = this.chart.ctx;
@@ -63,10 +63,12 @@ Iris.controller('HistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $r
 
 			return dataToString == points[0].label;
 		});
-		$state.go('relatorio-aluno', { resultado: resultadoAluno[0] });
+		if(resultadoAluno[0]){
+			$state.go('relatorio-aluno', { resultado: resultadoAluno[0], origem: "HISTORICO", historicoResultados: $scope.resultados });
+		}
   	};
 
 	$scope.voltar = function(){
-		$state.go('testes');
+		$state.go('escolha-historico-aluno-relatorio');
 	}
 })

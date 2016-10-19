@@ -1,11 +1,11 @@
 <ion-view view-title="Relatórios">
-	<ion-content class="padding">
-
-        <button class="button button-block button-calm" ng-click="reportsByStudent()">Por Aluno</button>
-
-        <button class="button button-block button-calm" ng-click="reportsByTest()">Por Teste</button>
-
-        <button class="button button-block button-calm" ng-click="studentHistoricByTest()">Histórico aluno</button>
-        
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Relatórios</h1>
+    </div>
+	<ion-content class="padding has-header">
+        <button class="button button-block button-positive" ng-click="reportsByStudent()">Por Aluno</button>
+        <button class="button button-block button-positive" ng-click="reportsByTest()">Por Teste</button>
+        <button class="button button-block button-positive" ng-click="studentHistoricByTest()">Histórico aluno</button>
+        <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>
 	</ion-content>
 </ion-view>

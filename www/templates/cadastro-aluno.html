@@ -1,24 +1,43 @@
-<ion-view name="cadastroAluno" view-title="Cadastro do Aluno">
-	<ion-content class="padding">
-		<div class="list list-inset">
-            <div class="item item-divider">Nome: </div>
-            <label class="item item-input">
-			<input type="text" ng-model="aluno.nome">
-		</div>
+<ion-view name="cadastroAluno">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Novo aluno</h1>
+    </div>
+    <ion-content class="padding has-header">
+        <form name="form" novalidate>
+            <div class="list list-inset">
+                <div class="item item-divider">Nome: </div>
+                <label class="item item-input" ng-class="{ 'has-error' : form.nome.$invalid}">
+                    <input type="text" name="nome" ng-model="aluno.nome" ng-minlength="7" placeholder="Digite o nome..." required>
+                </label>
+                <div class="form-errors" ng-messages="form.nome.$error" ng-messages-include="templates/form-errors.html" ng-show="form.nome.$touched"> 
+                    <div class="form-error" ng-message="required">Nome obrigatório.</div>  
+                </div>
+            </div>
 
-        <div class="list list-inset">
-            <div class="item item-divider">RG: </div>
-            <label class="item item-input">
-            <input type="text" ng-model="aluno.rg">
-        </div>
+            <div class="list list-inset">
+                <div class="item item-divider">RG: </div>
+                <label class="item item-input" ng-class="{ 'has-error' : form.rg.$invalid }">
+                    <input type="number" name="rg" ng-model="aluno.rg" ng-minlength="7" placeholder="Digite o rg..." required>
+                </label>
+                <div class="form-errors" ng-messages="form.rg.$error" ng-messages-include="templates/form-errors.html" ng-show="form.rg.$touched"> 
+                    <div class="form-error" ng-message="required">RG obrigatório.</div>  
+                </div>
+            </div>
 
-        <div class="list list-inset">
-            <div class="item item-divider">Data de nascimento: </div>
-            <label class="item item-input">
-            <input type="date" ng-model="aluno.dataNascimento"/>
-        </div>
+            <div class="list list-inset">
+                <div class="item item-divider">Data de nascimento: </div>
+                <label class="item item-input">
+                <input type="date" ng-model="aluno.dataNascimento"/ placeholder="Digite a data de nascimento..." >
+            </div>
 
-        <button class="button button-block button-calm" ng-click="salvar()" type="submit">Salvar</button>
+            <button class="button button-block button-positive" ng-click="salvar()" type="submit" ng-disabled="form.$invalid">Salvar</button>
                     
-	</ion-content>
+            <button class="button button-block button-positive" ng-click="cancelar()">Cancelar</button>
+        </form>
+
+        <script id="templates/form-errors.html" type="text/ng-template">  
+            <div class="form-error" ng-message="required">Campo obrigatório.</div>
+            <div class="form-error" ng-message="minlength">Campo deve ter no mínimo 7 caracteres.</div>
+        </script> 
+    </ion-content>
 </ion-view>

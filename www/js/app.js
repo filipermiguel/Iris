@@ -1,4 +1,3 @@
-//var serverAddress = "http://irisserver-iris.rhcloud.com";
 var serverAddress = "http://192.168.0.12:8081/iris-server";
 
 Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages' ])
@@ -14,6 +13,10 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
             StatusBar.styleDefault();
         }
     });
+
+    $ionicPlatform.registerBackButtonAction(function () {
+        //Do nothing.
+    }, 100);
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -33,15 +36,6 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         url: '/cadastro-teste/:testeId',
         templateUrl: 'templates/cadastro-teste.html',
         controller: 'CadastroTesteCtrl'
-    })
-    .state('escolha-teste', {
-        url: '/escolha-teste/:testeId',
-        templateUrl: 'templates/escolha-teste.html',
-        controller: 'EscolhaTesteCtrl',
-        cache: false,
-        params: {
-            rg: null
-        }
     })
     .state('realiza-teste', {
         url: '/realiza-teste/:testeId',
@@ -81,12 +75,13 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         controller: 'EscolhaAlunoRelatorioCtrl'
     })
     .state('relatorio-aluno', {
-        cache: false,
         url: '/relatorio-aluno',
         templateUrl: 'templates/relatorio-aluno.html',
         controller: 'RelatorioAlunoCtrl',
         params: {
-            resultado: null
+            resultado: null,
+            origem: null,
+            historicoResultados: []
         }
     })
     .state('escolha-teste-relatorio', {
@@ -113,7 +108,7 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         controller: 'EscolhaHistoricoAlunoRelatorioCtrl'
     })
     .state('historico-aluno-relatorio', {
-        cache: false,
+        cache: true,
         url: '/historico-aluno-relatorio',
         templateUrl: 'templates/historico-aluno-relatorio.html',
         controller: 'HistoricoAlunoRelatorioCtrl',

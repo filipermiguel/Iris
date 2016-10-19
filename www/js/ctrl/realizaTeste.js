@@ -19,7 +19,7 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
 
     $scope.perguntas = [];
     $scope.perguntaAtual;
-    $scope.alternativaSelecionada = { index : null}; 
+    $scope.alternativaSelecionada = { index : null }; 
     $scope.infoTeste = { perguntaIndex: 0, respostasCorretas: 0};
     $scope.fimModal;
     $scope.imagemPergunta;
@@ -90,6 +90,8 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
             $scope.infoTeste.perguntaIndex++;
             $scope.alternativaSelecionada.index = null;
         } else {
+            var aproveitamento = ($scope.infoTeste.respostasCorretas / $scope.infoTeste.perguntaIndex) * 100; 
+            $scope.infoTeste.aproveitamento = parseFloat(Math.round(aproveitamento * 100) / 100).toFixed(2);  
             $scope.fimModal.show();
         }
     };
@@ -110,6 +112,7 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
 
         $scope.fimModal.hide();
         $scope.infoTeste.respostasCorretas = 0;
+        $scope.infoTeste.aproveitamento = 0;
         
         var successFunction = function() {
             $state.go('testes');
@@ -118,4 +121,14 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
         Testes.salvarResultado($scope.resultadoTeste).success(successFunction);
     }
     
+    $scope.isNextQuestionDisabled = function(){
+        if($scope.alternativaSelecionada.index == null){
+            return false;
+        }
+        return true;
+    }
+
+    $scope.voltar = function(){
+        $state.go('testes');
+    }
 });

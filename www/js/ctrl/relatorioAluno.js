@@ -1,6 +1,8 @@
 Iris.controller('RelatorioAlunoCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicModal, Testes) {
 
 	$scope.resultado = $state.params.resultado;
+	$scope.historicoResultados = $state.params.historicoResultados;
+	$scope.origem = $state.params.origem;
 	$scope.infoResultado = JSON.parse($scope.resultado.resultado);
 	$scope.perguntaSelecionada = {};
 	$scope.respostaAluno = {};
@@ -60,7 +62,15 @@ Iris.controller('RelatorioAlunoCtrl', function($scope, $stateParams, $rootScope,
 		$scope.perguntaModal.hide();
 	}
 
-	$scope.voltarTestes = function(){
-		$state.go('testes');
+	$scope.voltarRelatorios = function(){
+		if($scope.origem == "TESTE"){
+			$state.go('escolha-teste-relatorio');
+		} else if($scope.origem == "ALUNO"){
+			$state.go('escolha-aluno-relatorio');
+		} else if($scope.origem == "HISTORICO") {
+			$state.go('historico-aluno-relatorio', { historicoResultados: $scope.historicoResultados });
+		} else {
+			$state.go('relatorios');
+		}
 	}
 })

@@ -10,7 +10,7 @@ Iris.controller('EscolhaResultadoRelatorioCtrl', function($scope, $stateParams, 
 
 	$scope.viewStudentResult = function(resultado){
 		$ionicLoading.show({hideOnStateChange: true});
-        $state.go('relatorio-aluno', { resultado: resultado});
+        $state.go('relatorio-aluno', { resultado: resultado, origem: "TESTE" });
 	}		
 
 	$scope.voltar = function(){

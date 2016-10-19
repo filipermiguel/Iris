@@ -1,19 +1,16 @@
 Iris.controller('EscolhaAlunoRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicPopup, $ionicLoading, $ionicScrollDelegate, AlunoService) {
 
-	$scope.formData = {};
-	$scope.aluno = {};
-	$scope.studentTest = {};
-	$scope.selectedDate = { date : null};
+	$scope.testes = [];
 
-	$scope.data = {
+	$scope.searchAluno = {
 		selected: null
 	};
 
-	$scope.data2 = {
+	$scope.searchTeste = {
 		selected: null
 	};
 
-	$scope.data3 = {
+	$scope.searchResult = {
 		selected: null
 	};
 
@@ -23,21 +20,17 @@ Iris.controller('EscolhaAlunoRelatorioCtrl', function($scope, $stateParams, $roo
 
 	$scope.showReport = function() {
 		$ionicLoading.show({hideOnStateChange: true});
-		$state.go('relatorio-aluno', { resultado: $scope.data3.selected });
+		$state.go('relatorio-aluno', { resultado: $scope.searchResult.selected, origem: "ALUNO" });
 	}
 
-	$scope.clickAluno = function(aluno) {
-		$scope.aluno = aluno;	
-
-		AlunoService.getStudentTestsDone($scope.aluno.rg).success(function(studentTests) {
-
+	$scope.onSelectStudent = function() {
+		AlunoService.getStudentTestsDone($scope.searchAluno.selected.rg).success(function(studentTests) {
+			$scope.searchTeste.selected = null;
+			$scope.searchResult.selected = null;
 			if(studentTests.length > 0){
-				$scope.studentTests = studentTests;
+				$scope.testes = studentTests;
 			} else {
-				$scope.studentTests = [];
-				$scope.studentTest = {};
-				$scope.selectedDate = {};
-				$ionicLoading.hide();
+				$scope.testes = [];
 				$ionicPopup.alert({
 					template: 'Aluno não possui testes'
 				});
@@ -45,10 +38,8 @@ Iris.controller('EscolhaAlunoRelatorioCtrl', function($scope, $stateParams, $roo
 		});
 	}
 
-	$scope.clickTeste = function(studentTest) {
-		$scope.studentTest = studentTest;	
-
-		AlunoService.getStudentTestDoneListDates($scope.aluno.rg, $scope.studentTest.id).success(function(testResults) {
+	$scope.onSelectTest = function() {
+		AlunoService.getStudentTestDoneListDates($scope.searchAluno.selected.rg, $scope.searchTeste.selected.id).success(function(testResults) {
 
 			if(testResults.length > 0){
 				$scope.testResults = testResults;
@@ -58,7 +49,8 @@ Iris.controller('EscolhaAlunoRelatorioCtrl', function($scope, $stateParams, $roo
 		});
 	}
 
-	$scope.clickDate = function(data) {
-		$scope.selectedDate.date = data;	
-	}
+	$scope.voltar = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('relatorios');
+    }
 })

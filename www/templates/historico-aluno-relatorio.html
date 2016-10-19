@@ -1,11 +1,11 @@
 <ion-view view-title="HistoricoAlunoRelatorio">
-  <ion-content class="padding">
-
-    <div class="item item-text-wrap">
-        <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="options" width="100%" style="height:400px" click="onValueClick"/>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Histórico aluno</h1>
     </div>
-
-    <button class="button button-block button-calm" ng-click="voltar()">Voltar</button>
-
-  </ion-content>
+    <ion-content class="padding has-header">
+        <div class="item item-text-wrap">
+            <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="options" width="120%" click="onValueClick" />
+        </div>
+        <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>
+    </ion-content>
 </ion-view>

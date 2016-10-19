@@ -1,17 +1,13 @@
 Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicPopup, $ionicLoading, $ionicScrollDelegate, AlunoService) {
 
-	$scope.formData = {};
-	$scope.aluno = {};
-	$scope.studentTest = {};
-	$scope.selectedDate = { date : null};
 	$scope.slider = {};
 	var datas = [];
 
-	$scope.data = {
+	$scope.searchAluno = {
 		selected: null
 	};
 
-	$scope.data2 = {
+	$scope.searchTeste = {
 		selected: null
 	};
 
@@ -23,22 +19,17 @@ Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $statePar
 		var resultados = $scope.testResults.filter(function(obj) {
 			return obj.data >= datas[$scope.slider.minValue] && obj.data <= datas[$scope.slider.maxValue];
 		});
-
 		$ionicLoading.show({hideOnStateChange: true});
 		$state.go('historico-aluno-relatorio', { historicoResultados: resultados });
 	}
 
-	$scope.clickAluno = function(aluno) {
-		$scope.aluno = aluno;	
-
-		AlunoService.getStudentTestsDone($scope.aluno.rg).success(function(studentTests) {
-
+	$scope.onSelectStudent = function() {
+		AlunoService.getStudentTestsDone($scope.searchAluno.selected.rg).success(function(studentTests) {
+			$scope.searchTeste.selected = null;
 			if(studentTests.length > 0){
-				$scope.studentTests = studentTests;
+				$scope.testes = studentTests;
 			} else {
-				$scope.studentTests = [];
-				$scope.studentTest = {};
-				$scope.selectedDate = {};
+				$scope.testes = [];
 				$ionicLoading.hide();
 				$ionicPopup.alert({
 					template: 'Aluno não possui testes'
@@ -47,18 +38,13 @@ Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $statePar
 		});
 	}
 
-	$scope.clickTeste = function(studentTest) {
-		$scope.studentTest = studentTest;	
-
-		AlunoService.getStudentTestDoneListDates($scope.aluno.rg, $scope.studentTest.id).success(function(testResults) {
-
+	$scope.onSelectTest = function() {
+		AlunoService.getStudentTestDoneListDates($scope.searchAluno.selected.rg, $scope.searchTeste.selected.id).success(function(testResults) {
 			if(testResults.length > 0){
 				$scope.testResults = testResults;
-
 				for(i = 0; i < testResults.length; i++){
 					datas.push(testResults[i].data);
 				}
-
 				$scope.slider = {
 					minValue: 0,
 					maxValue: datas.length - 1,
@@ -71,14 +57,18 @@ Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $statePar
 								var data = new Date(datas[index]);
 								return data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
 							}
-    						return ''; //error case
+    						return '';
     					}
     				}
     			};
-
     		} else {
     			$scope.testResults = {};
     		}
     	});
 	}
+
+	$scope.voltar = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('relatorios');
+    }
 })

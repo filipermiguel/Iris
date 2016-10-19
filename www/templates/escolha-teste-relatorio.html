@@ -1,34 +1,33 @@
 <ion-view view-title="EscolhaTesteRelatorio">
-<ion-content class="padding">
-
-<h4>Teste:</h4>
-            <ui-select tagging ng-model="data.selected" theme="bootstrap">
-        <ui-select-match placeholder="Escolha um teste...">{{$select.selected.nome}}</ui-select-match>
-        <ui-select-choices repeat="teste in testes | orderBy:'nome' | filter: $select.search track by teste.nome">
-            <a class="item  my-item" ng-click="clickTeste(teste)">
-              <p>{{teste.nome}}</p>
-            </a>
-          </ui-select-choices>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Relatório teste</h1>
+    </div>
+    <ion-content class="padding has-header">
+        <h3 style="text-align: center">Teste</h3>
+        <ui-select ng-model="searchTeste.selected" theme="select2" ng-disabled="disabled" style="width: 100%;">
+            <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
+            <ui-select-choices repeat="teste in testes | filter: $select.search track by teste.nome">
+                <div ng-bind-html="teste.nome | highlight: $select.search"></div>
+            </ui-select-choices>
         </ui-select>
-    
-    <h4>Aproveitamento:</h4>
-    <div>
-      <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
-    </div>
 
-    <div class="list list-inset">
-      <div class="item item-divider">Data inicial: </div>
-      <label class="item item-input">
-      <input type="date" ng-model="periodo.inicio"/>
-    </div>
+        <h3 style="text-align: center; margin-top: 20px">Aproveitamento</h3>
+        <div>
+            <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+        </div>
+        <div style="horizontal-align: middle;">
+            <h3 style="text-align: center">Período</h3>
+            <div class="card padding" style="horizontal-align: middle; width: 45%; float: left; margin-right: 5%">
+                <h4 class="title">Data inicial</h4>
+                <input type="date" ng-model="periodo.inicio" />
+            </div>
 
-    <div class="list list-inset">
-      <div class="item item-divider">Data final: </div>
-      <label class="item item-input">
-      <input type="date" ng-model="periodo.fim"/>
-    </div>
-
-    <button class="button button-block button-calm" ng-click="showReport()">Informações teste</button>
-
-  </ion-content>
+            <div class="card padding" style="horizontal-align: middle; width: 45%; float: left;  margin-left: 5%">
+                <h4 class="title">Data final</h4>
+                <input type="date" ng-model="periodo.fim" />
+            </div>
+        </div>
+        <button class="button button-block button-positive" ng-click="showReport()" ng-disabled="searchTeste.selected == null">Informações teste</button>
+        <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>
+    </ion-content>
 </ion-view>

@@ -4,9 +4,9 @@ Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPop
 	$scope.registerData = {};
 	 
     
-    if (UserService.getUser()) {
-        $state.go("testes");
-    };
+    //if (UserService.getUser()) {
+    //    $state.go("testes");
+    //};
 
     $scope.login = function() {
         UserService.login($scope.loginData.nome, $scope.loginData.senha).success(function(user) {

@@ -1,44 +1,33 @@
 <ion-view view-title="EscolhaHistoricoAlunoRelatorio">
-<ion-content class="padding">
-      <h4>Aluno:</h4>
-      <ui-select tagging ng-model="data.selected" theme="bootstrap">
-        <ui-select-match placeholder="Escolha um aluno...">{{$select.selected.nome}}</ui-select-match>
-        <ui-select-choices repeat="aluno in alunos | orderBy:'nome' | filter: $select.search track by aluno.nome">
-            <!--<img ng-src="http://placekitten.com/60/{{55 + ($index % 10)}}">
-            {{aluno.nome}} - {{aluno.rg}}-->
-            <!--<div ng-bind="'Teste' + (aluno.nome)">{{aluno.nome}} - {{aluno.rg}}</div>
-            <div ng-bind="'RG' + (aluno.rg)"></div>-->
-            <a class="item  my-item" ng-click="clickAluno(aluno)">
-              <img ng-src="http://placekitten.com/60/{{55 + ($index % 10)}}">
-              <p>Nome: {{aluno.nome}}</p>
-              <p>RG: {{aluno.rg}}</p>
-              <p>Nascimento: {{aluno.dataNascimento | date: 'dd/MM/yyyy'}}</p>
-            </a>
-        </ui-select-choices>
-      </ui-select>
-
-      <div ng-show="aluno.rg && studentTests.length > 0">
-      <h4>Teste:</h4>
-      <ui-select tagging ng-model="data2.selected" theme="bootstrap">
-        <ui-select-match placeholder="Escolha um teste...">{{$select.selected.nome}}</ui-select-match>
-        <ui-select-choices repeat="studentTest in studentTests | orderBy:'nome' | filter: $select.search track by studentTest.nome">
-            <!--<img ng-src="http://placekitten.com/60/{{55 + ($index % 10)}}">
-            {{aluno.nome}} - {{aluno.rg}}-->
-            <!--<div ng-bind="'Teste' + (aluno.nome)">{{aluno.nome}} - {{aluno.rg}}</div>
-            <div ng-bind="'RG' + (aluno.rg)"></div>-->
-            <a class="item  my-item" ng-click="clickTeste(studentTest)">
-              <p>{{studentTest.nome}}</p>
-            </a>
-        </ui-select-choices>
-      </ui-select>
-      </div>
-
-    <div ng-show="aluno.rg && studentTest.id">
-      <h4>Período:</h4>
-      <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Histórico aluno</h1>
     </div>
-
-    <button class="button button-block button-calm" ng-click="showReport()" ng-show="aluno.rg && studentTest.id">Informações histórico</button>
-
-  </ion-content>
+    <ion-content class="padding has-header">
+        <h3 style="text-align: center; margin-top: 20px">Aluno</h3>
+        <ui-select ng-model="searchAluno.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectStudent()">
+            <ui-select-match placeholder="Escolha um aluno..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
+            <ui-select-choices repeat="aluno in alunos | filter: $select.search track by aluno.nome">
+                <div ng-bind-html="aluno.nome | highlight: $select.search"></div>
+                <small>
+                RG: {{aluno.rg}}
+                Nascimento: {{aluno.dataNascimento | date: 'dd/MM/yyyy'}}</span>
+                </small>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-show="searchAluno.selected.rg && testes.length > 0">
+            <h3 style="text-align: center; margin-top: 20px">Teste</h3>
+            <ui-select ng-model="searchTeste.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
+                <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
+                <ui-select-choices repeat="teste in testes | filter: $select.search track by teste.nome">
+                    <div ng-bind-html="teste.nome | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div ng-show="searchAluno.selected && searchTeste.selected">
+            <h4>Período:</h4>
+            <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+        </div>
+        <button class="button button-block button-positive" ng-click="showReport()" ng-show="searchAluno.selected && searchTeste.selected" style="margin-top: 20px">Informações histórico</button>
+        <button class="button button-block button-positive" ng-click="voltar()" style="margin-top: 20px">Voltar</button>
+    </ion-content>
 </ion-view>

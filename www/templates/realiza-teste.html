@@ -1,50 +1,40 @@
-<ion-view name="RealizaTeste" view-title="Executa teste">
-	<ion-content class="padding">
-        <div class="list list-inset">
-            <div class="item item-divider">Teste: {{teste.nome}}</div>
+<ion-view name="RealizaTeste">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">{{teste.nome}}</h1>
+    </div>
+    <ion-content class="padding has-header">
+        <div class="card">
+            <div class="item item-text-wrap">{{perguntaAtual.nome}}</div>
         </div>
-
-		<div class="list list-inset">
-            <div class="item item-divider">Pergunta: {{perguntaAtual.nome}}</div>
-		</div>
-
-        <div class="padding" style="text-align: center">
-            <img ng-src="data:image/jpg;base64,{{imagemPergunta}}" ng-show="imagemPergunta" height="200px"/>
+        <div class="card" style="text-align: center">
+            <img ng-src="data:image/jpg;base64,{{imagemPergunta}}" ng-show="imagemPergunta" width="100%"/>
         </div>
-            
-        <div class="list list-inset">
+        <div class="list list-inset card">
             <div class="item item-divider">Alternativas: </div>
 
              <ion-list>
-                <ion-radio ng-repeat="alternativa in perguntaAtual.alternativas" ng-value="(( $index ))" ng-model="alternativaSelecionada.index" name="nome" [color]="lightgreen">{{alternativa.nome}}</ion-radio>
+                <ion-radio class="item item-icon-left item-radio" ng-repeat="alternativa in perguntaAtual.alternativas" ng-value="(( $index ))" ng-model="alternativaSelecionada.index" name="nome">{{alternativa.nome}}</ion-radio>
             </ion-list>
         </div>
+		<button class="button button-block button-positive" ng-click="proximaPergunta()" type="submit" ng-disabled="alternativaSelecionada.index == null" style="margin-top: 40px">Próxima questão</button>
+        <button class="button button-block button-positive" ng-click="voltar()" style="margin-top: 20px">Voltar</button>
 
-		<button class="button button-block button-calm" ng-click="proximaPergunta()" type="submit">Próxima Pergunta</button>
-
-        <!-- Modal para adicionar participante ao grupo -->
         <script id="fim-teste.html" type="text/ng-template">
             <ion-modal-view view title="Final teste">
-                <ion-header-bar>
-                    <h1 class="title">Teste</h1>
-                </ion-header-bar>
-            <ion-content class="padding">
-                <div class="list list-inset">
-                    <div class="item item-divider">Teste</div>
-                    <ion-item class="item-remove-animate" type="item-text-wrap"><p>{{teste.nome}}</p></ion-item>
+                <div class="bar bar-header bar-positive">
+                    <h1 class="title">{{teste.nome}}</h1>
                 </div>
-
-                <div class="list list-inset">
-                    <div class="item item-divider">Quantidade questões</div>
-                    <ion-item class="item-remove-animate" type="item-text-wrap"><p>{{infoTeste.perguntaIndex}}</p></ion-item>
+            <ion-content class="padding has-header">
+                <div class="card">
+                    <div class="item item-text-wrap">Quantidade de questões: {{infoTeste.perguntaIndex}}</div>
                 </div>
-
-                <div class="list list-inset">
-                    <div class="item item-divider">Quantidade acertos</div>
-                    <ion-item class="item-remove-animate" type="item-text-wrap"><p>{{infoTeste.respostasCorretas}}</p></ion-item>
+                <div class="card">
+                    <div class="item item-text-wrap">Quantidade acertos: {{infoTeste.respostasCorretas}}</div>
                 </div>
-
-                <button class="button button-block button-calm" ng-click="finalizarTeste()" type="submit">Finalizar teste</button>
+                <div class="card">
+                    <div class="item item-text-wrap">Aproveitamento: {{infoTeste.aproveitamento}}%</div>
+                </div>
+                <button class="button button-block button-positive" ng-click="finalizarTeste()" type="submit">Finalizar teste</button>
             </ion-content>
             </ion-modal-view>
         </script>
