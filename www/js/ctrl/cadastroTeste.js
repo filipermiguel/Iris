@@ -19,6 +19,8 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     $scope.alternativaSelecionada = {
         index: null
     };
+    $scope.isEditing = false;
+    $scope.title = "Novo teste";
 
     $ionicModal.fromTemplateUrl('add-pergunta-teste.html', {
         scope: $scope
@@ -27,7 +29,8 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     });
 
     if ($stateParams.testeId) {
-        $scope.viewTitle = "Editar teste";
+        $scope.title = "Visualizar teste";
+        $scope.isEditing = true;
         Testes.getTeste($stateParams.testeId).success(function(teste) {
             $scope.teste = teste;
             console.log($scope.teste);
@@ -53,12 +56,14 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
 
     $scope.addPergunta = function() {
         ESTADO_PERGUNTA = "INSERT";
+        $scope.questionTitle = "Nova questão";
         $scope.perguntaSelecionada = $scope.novaPergunta;
         $scope.perguntaModal.show();
     };
 
     $scope.perguntaClicked = function(pergunta) {
         ESTADO_PERGUNTA = "UPDATE";
+         $scope.questionTitle = "Visualizar questão";
         $scope.perguntaSelecionada = pergunta;
         $scope.alternativaSelecionada.index = $scope.perguntaSelecionada.alternativaCorreta;
         $scope.perguntaModal.show();

@@ -49,4 +49,9 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state,
         $state.go('cadastro-usuario');
     }
 
+    $scope.logOff = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('login');
+    }
+
 });
