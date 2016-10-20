@@ -22,4 +22,9 @@ Iris.controller('EscolhaAlunoCtrl', function($scope, $stateParams, $rootScope, $
         }
         return true;
     }
+
+    $scope.voltar = function() {
+        $ionicLoading.show({hideOnStateChange: true});
+        $state.go('relatorios');
+    }
 })
