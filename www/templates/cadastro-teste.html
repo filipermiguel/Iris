@@ -3,98 +3,84 @@
         <h1 class="title">Novo teste</h1>
     </div>
     <ion-content class="padding has-header">
-        <form name="testForm"  novalidate>
-            <div class="list list-inset">
-                <div class="item item-divider">Descrição: </div>
-                <label class="item item-input" ng-class="{ 'has-error' : testForm.descricaoTeste.$invalid}">
-                    <input type="text" name="descricaoTeste" ng-model="teste.nome" ng-minlength="5" placeholder="Digite a descrição do teste..." required>
-                </label>
-                <div class="form-errors" ng-messages="testForm.descricaoTeste.$error" ng-messages-include="templates/form-errors.html" ng-show="testForm.descricaoTeste.$touched"> 
-                    <div class="form-error" ng-message="required">Descrição obrigatória.</div>  
-                </div>  
+        <form name="testForm" novalidate>
+            <div class="item item-divider">Descrição: </div>
+            <label class="item item-input" ng-class="{ 'has-error' : testForm.descricaoTeste.$invalid}">
+                <input type="text" name="descricaoTeste" ng-model="teste.nome" ng-minlength="5" placeholder="Digite a descrição do teste..." required>
+            </label>
+            <div class="form-errors" ng-messages="testForm.descricaoTeste.$error" ng-messages-include="templates/form-errors.html" ng-show="testForm.descricaoTeste.$touched">
+                <div class="form-error" ng-message="required">Descrição obrigatória.</div>
             </div>
-
-            <div class="list list-inset">
+            <div class="card">
                 <div class="item item-divider">Questões: </div>
-           
-                <!-- lista perguntas -->
-                <ion-item class="item-remove-animate" ng-repeat="pergunta in teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
-                    <p>{{pergunta.nome}}</p>
-                </ion-item>
-
-                <button class="button icon icon-right ion-android-add" ng-click="addPergunta()" style="margin-bottom: 5px; margin-top: 1px; width: 100%;">
+                <ion-list>
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="pergunta in teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
+                        <p>{{pergunta.nome}}</p>
+                        <i class="icon ion-chevron-left icon-accessory"></i>
+                        <ion-option-button class="button-assertive" ng-click="removerQuestao(pergunta, (($index)))">Remover</ion-option-button>
+                    </ion-item>
+                </ion-list>
+                <button class="button icon icon-right ion-android-add" ng-click="addPergunta()" style="width: 100%;">
                     Adicionar questão
                 </button>
             </div>
-
             <button class="button button-block button-positive" ng-click="salvar()" type="submit" ng-disabled="isSaveTestDisabled(testForm.descricaoTeste.$valid)">Salvar teste</button>
-
             <button class="button button-block button-positive" ng-click="cancelar()">Cancelar</button>
-        </form>  
-            
-        <!-- Modal para adicionar participante ao grupo -->
+        </form>
+
         <script id="add-pergunta-teste.html" type="text/ng-template">
             <ion-modal-view view title="Criar pergunta">
                 <div class="bar bar-header bar-positive">
                     <h1 class="title">Nova questão</h1>
                 </div>
-            <ion-content class="padding has-header">
-                <form name="questionForm"  novalidate>
-                    <div class="list list-inset">
-                        <div class="item item-divider">Questão: </div>
-                    <!--<label class="item item-input">
-                        <input type="text" placeholder="Digite a descrição da questão..." ng-model="perguntaSelecionada.nome"/>-->
-                        <label class="item item-input" ng-class="{ 'has-error' : questionForm.descricaoQuestao.$invalid}">
-                            <input type="text" name="descricaoQuestao" ng-model="perguntaSelecionada.nome" ng-minlength="5" placeholder="Digite a descrição da questão..." required>
-                        </label>
-                        <div class="form-errors" ng-messages="questionForm.descricaoQuestao.$error" ng-messages-include="templates/form-errors.html" ng-show="questionForm.descricaoQuestao.$touched"> 
-                        <div class="form-error" ng-message="maxlength"></div>  
-                        </div>  
-                    </div>
-
-                    <ion-scroll align="center">
-                        <img ng-src="data:image/jpg;base64,{{perguntaSelecionada.imagem}}" ng-show="perguntaSelecionada.imagem" height="200px"/>
-                    </ion-scroll>
-
-
-                    <button class="button button-block" ng-click="addImage()">
-                        <span ng-show="perguntaSelecionada.imagem">Alterar imagem</span>
-                        <span ng-show="!perguntaSelecionada.imagem">Adicionar imagem</span>
-                    </button>
-                
-                    <div class="list list-inset">
-                        <div class="item item-divider">Alternativas: </div>
-
-                        <!-- lista alternativas -->
-                        <ion-list>
-                        <ion-radio ng-repeat="alternativa in perguntaSelecionada.alternativas" ng-value="(( $index ))" ng-model="alternativaSelecionada.index" name="nome">{{alternativa.nome}}</ion-radio>
-                        </ion-list>
-            
-                        <!-- Adicionar alternativa -->
-                        <label class="item item-input">
-                            <input type="text" placeholder="Digite a descrição da alternativa..." ng-model="novaAlternativa.nome">
-                        </label>
-                        <button class="button icon icon-right ion-android-add" ng-click="addAlternativa()" style="margin-bottom: 5px; margin-top: 1px; width: 100%;">
-                            Adicionar alternativa
+                <ion-content class="padding has-header">
+                    <form name="questionForm" novalidate>
+                        <div class="list list-inset">
+                            <div class="item item-divider">Questão: </div>
+                            <label class="item item-input" ng-class="{ 'has-error' : questionForm.descricaoQuestao.$invalid}">
+                                <input type="text" name="descricaoQuestao" ng-model="perguntaSelecionada.nome" ng-minlength="5" placeholder="Digite a descrição da questão..." required>
+                            </label>
+                            <div class="form-errors" ng-messages="questionForm.descricaoQuestao.$error" ng-messages-include="templates/form-errors.html" ng-show="questionForm.descricaoQuestao.$touched">
+                                <div class="form-error" ng-message="maxlength"></div>
+                            </div>
+                        </div>
+                        <ion-scroll align="center">
+                            <img ng-src="data:image/jpg;base64,{{perguntaSelecionada.imagem}}" ng-show="perguntaSelecionada.imagem" height="200px" />
+                        </ion-scroll>
+                        <button class="button button-block" ng-click="addImage()">
+                            <span ng-show="perguntaSelecionada.imagem">Alterar imagem</span>
+                            <span ng-show="!perguntaSelecionada.imagem">Adicionar imagem</span>
                         </button>
-                   
-                        <button class="button button-block button-positive" type="submit" ng-click="okPergunta(perguntaSelecionada)" ng-disabled="isAddQuestionDisabled(questionForm.descricaoQuestao.$valid, perguntaSelecionada)">
-                            Adicionar questão
-                        </button>
-
-                        <button class="button button-block button-positive" ng-click="cancelarPergunta(perguntaSelecionada)">
-                            Cancelar
-                        </button>
-                    </div>
-                </form>  
-            </ion-content>
+                        <div class="list list-inset">
+                            <div class="item item-divider">Alternativas: </div>
+                            <ion-list>
+                                <ion-radio class="item item-icon-right item-radio" ng-repeat="alternativa in perguntaSelecionada.alternativas" ng-value="(( $index ))" ng-model="alternativaSelecionada.index" name="nome">{{alternativa.nome}} 
+                                </ion-radio>
+                            </ion-list>
+                            <label class="item item-input" ng-hide="perguntaSelecionada.alternativas.length >= 5">
+                                <input type="text" placeholder="Digite a descrição da alternativa..." ng-model="novaAlternativa.nome">
+                            </label>
+                            <button class="button icon icon-right ion-android-add" ng-hide="perguntaSelecionada.alternativas.length >= 5" ng-click="addAlternativa()" style="width: 100%;">
+                                Adicionar alternativa
+                            </button>
+                            <button class="button icon icon-right ion-android-remove" ng-show="alternativaSelecionada.index != null" ng-click="removeAlternativa(alternativaSelecionada.index)" style="width: 100%;">
+                                Remover alternativa selecionada
+                            </button>
+                            <small>*Mínimo de 2 e máximo de 5 alternativas</small>
+                            <button class="button button-block button-positive" style="margin-top: 20px" type="submit" ng-click="okPergunta(perguntaSelecionada)" ng-disabled="isAddQuestionDisabled(questionForm.descricaoQuestao.$valid, perguntaSelecionada)">
+                                Adicionar questão
+                            </button>
+                            <button class="button button-block button-positive" ng-click="cancelarPergunta(perguntaSelecionada)">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </ion-content>
             </ion-modal-view>
         </script>
-
-
-        <script id="templates/form-errors.html" type="text/ng-template">  
+        <script id="templates/form-errors.html" type="text/ng-template">
             <div class="form-error" ng-message="required">Descrição obrigatória.</div>
             <div class="form-error" ng-message="minlength">Descrição deve ter no mínimo 5 caracteres.</div>
-        </script> 
+        </script>
     </ion-content>
 </ion-view>

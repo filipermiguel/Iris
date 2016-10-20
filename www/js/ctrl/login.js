@@ -2,7 +2,6 @@ Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPop
 	
     $scope.loginData = {};
 	$scope.registerData = {};
-	 
     
     //if (UserService.getUser()) {
     //    $state.go("testes");

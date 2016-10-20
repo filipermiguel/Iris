@@ -1,4 +1,4 @@
-Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state, $ionicLoading, Testes) {
+Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state, $ionicLoading, $ionicPopup, Testes) {
 	
 	Testes.getTestes().success(function(testes) {
         $scope.testes = testes;
@@ -18,8 +18,15 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state,
     }
 
     $scope.removerTeste = function(teste, index) {
-        $scope.testes.splice(index, 1);
-        Testes.removerTeste(teste.id);
+        Testes.removerTeste(teste.id).success(function() {
+            $scope.testes.splice(index, 1);
+        }).error(function(data) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+                title: 'Falha na remoção.',
+                template: 'Já existem resultados para este teste.'
+            });
+        });
     }
 
     $scope.execute = function() {

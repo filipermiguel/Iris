@@ -145,7 +145,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     }
 
     $scope.isAddQuestionDisabled = function(isValid, pergunta) {
-        if (isValid && pergunta.alternativas.length > 0 && $scope.alternativaSelecionada.index != null) {
+        if (isValid && pergunta.alternativas.length >= 2 && pergunta.alternativas.length <= 5 && $scope.alternativaSelecionada.index != null) {
             return false;
         }
         return true;
@@ -153,6 +153,15 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
 
     $scope.cancelar = function(){
         $state.go('testes');
+    }
+
+    $scope.removerQuestao = function(index) {
+        $scope.teste.perguntas.splice(index, 1);
+    }
+
+    $scope.removeAlternativa = function(index) {
+        $scope.alternativaSelecionada.index = null;
+        $scope.perguntaSelecionada.alternativas.splice(index, 1);
     }
 
 });
