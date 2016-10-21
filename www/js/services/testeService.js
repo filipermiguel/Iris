@@ -18,10 +18,6 @@ Iris.service('Testes', ['$http', function ($http) {
 		return $http.get(urlBase + testeId + "/primeiraPergunta");
 	};
 
-	this.getPrimeiraImagem = function(testeId) {
-		return $http.get(urlBase + testeId + "/primeiraImagem");
-	};
-
 	this.getImagemPergunta = function(testeId, perguntaId) {
 		return $http.get(urlBase + testeId + "/imagemPergunta/" + perguntaId);
 	};

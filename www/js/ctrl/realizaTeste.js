@@ -49,10 +49,10 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
         Testes.getPrimeiraPergunta($state.params.id).success(function(primeiraPergunta) {
             $scope.perguntaAtual = primeiraPergunta;
             $scope.infoTeste.perguntaIndex = 1;
-        });
 
-        Testes.getPrimeiraImagem($state.params.id).success(function(imagem) {
-            $scope.imagemPergunta = imagem;
+            Testes.getImagemPergunta($state.params.id, $scope.perguntaAtual.id).success(function(imagem) {
+                $scope.imagemPergunta = imagem;
+            });
         });
 	}
 	

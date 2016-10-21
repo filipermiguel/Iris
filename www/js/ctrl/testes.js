@@ -12,6 +12,18 @@ Iris.controller('TestesCtrl', function($scope, $stateParams, $rootScope, $state,
 		});
 	}
 
+	$scope.removerTeste = function(teste, index) {
+        Testes.removerTeste(teste.id).success(function() {
+            $scope.testes.splice(index, 1);
+        }).error(function(data) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+                title: 'Falha na remoção.',
+                template: 'Já existem resultados para este teste.'
+            });
+        });
+    }
+
 	$scope.voltar = function() {
         $ionicLoading.show({hideOnStateChange: true});
         $state.go('menu');
