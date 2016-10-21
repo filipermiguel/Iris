@@ -16,7 +16,7 @@ Iris.controller('CadastroUsuarioCtrl', function($scope, $state, $stateParams, $i
     }
 
     $scope.cancelar = function(){
-        $state.go('testes');
+        $state.go('menu');
     }
 
 });

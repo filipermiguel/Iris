@@ -51,13 +51,19 @@ Iris.service('Testes', ['$http', function ($http) {
 			if(aproveitamento){
 				query = query + "&";
 			}
-			//date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
 			query = query + "inicio=" + periodo.inicio.getFullYear() + "-" + (periodo.inicio.getMonth() + 1)  + "-" + periodo.inicio.getDate() + //
 			"&fim=" + periodo.fim.getFullYear() + "-" + (periodo.fim.getMonth() + 1) + "-" + periodo.fim.getDate();
 		}
 
 
 		return $http.get(urlBase + teste.id + "/resultados" + (query ? "?" + query : ""));
+	};
+
+	this.studentHasResultToday = function(teste, rg) {
+		var today = new Date();
+		var query = "rg=" + rg + "&data=" + today.getFullYear() + "-" + (today.getMonth() + 1)  + "-" + today.getDate();
+
+		return $http.get(urlBase + teste.id + "/resultado?" + query);
 	};
 
 }]);

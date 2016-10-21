@@ -1,6 +1,6 @@
 var serverAddress = "http://192.168.0.12:8081/iris-server";
 
-Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages' ])
+Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages', 'monospaced.elastic' ])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -26,6 +26,11 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
     })
+    .state('menu', {
+        url: '/menu',
+        templateUrl: 'templates/menu.html',
+        controller: 'MenuCtrl'
+    })
     .state('testes', {
         cache: false,
         url: '/testes',
@@ -33,6 +38,7 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         controller: 'TestesCtrl'
     })
     .state('cadastro-teste', {
+        cache: false,
         url: '/cadastro-teste/:testeId',
         templateUrl: 'templates/cadastro-teste.html',
         controller: 'CadastroTesteCtrl'
@@ -59,6 +65,7 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         controller: 'CadastroAlunoCtrl'
     })    
     .state('escolha-aluno', {
+        cache: false,
         url: '/escolha-aluno',
         templateUrl: 'templates/escolha-aluno.html',
         controller: 'EscolhaAlunoCtrl'
@@ -108,7 +115,7 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         controller: 'EscolhaHistoricoAlunoRelatorioCtrl'
     })
     .state('historico-aluno-relatorio', {
-        cache: true,
+        cache: false,
         url: '/historico-aluno-relatorio',
         templateUrl: 'templates/historico-aluno-relatorio.html',
         controller: 'HistoricoAlunoRelatorioCtrl',

@@ -15,7 +15,7 @@ Iris.controller('CadastroAlunoCtrl', function($scope, $state, $stateParams, $ion
 	}
 
     $scope.cancelar = function(){
-        $state.go('testes');
+        $state.go('menu');
     }
     
 });

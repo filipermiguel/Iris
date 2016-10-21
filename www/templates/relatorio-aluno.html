@@ -2,53 +2,55 @@
     <div class="bar bar-header bar-positive">
         <h1 class="title">Relatório aluno</h1>
     </div>
-    <ion-content class="padding has-header">
-        <div class="card padding">
-            <h3 style="text-align: center">Aluno</h3>
-            <p>Nome: {{resultado.aluno.nome}}</p>
-            <p>RG: {{resultado.aluno.rg}}</p>
-            <p>Data de nascimento: {{resultado.aluno.dataNascimento | date: 'dd/MM/yyyy'}}</p>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <div class="card padding">
+                <h3 style="text-align: center">Aluno</h3>
+                <p>Nome: {{resultado.aluno.nome}}</p>
+                <p>RG: {{resultado.aluno.rg}}</p>
+                <p>Data de nascimento: {{resultado.aluno.dataNascimento | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="card padding">
+                <h4 style="text-align: center">{{resultado.teste.nome}}</h4>
+                <p>Total de questôes: {{resultado.teste.perguntas.length}}</p>
+                <p>Quantidade de acertos: {{qtdCorretas}}</p>
+                <p>Porcentagem de acertos: {{porcentagemCorretas}}%</p>
+            </div>
+            <div class="card padding">
+                <h4 style="text-align: center">Questões</h4>
+                <ion-list>
+                    <ion-item ng-style="isCorrect(pergunta)" ng-repeat="pergunta in resultado.teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
+                        <p>{{pergunta.nome}}</p>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <script id="visualizar-pergunta.html" type="text/ng-template">
+                <ion-modal-view view title="Visualizar pergunta">
+                    <div class="bar bar-header bar-positive">
+                        <h1 class="title">{{resultado.teste.nome}}</h1>
+                    </div>
+                    <ion-content class="padding has-header">
+                        <div class="card">
+                            <div class="item item-text-wrap">{{perguntaSelecionada.nome}}</div>
+                        </div>
+                        <div class="card" style="text-align: center">
+                            <img ng-src="data:image/jpg;base64,{{imagemPergunta}}" ng-show="imagemPergunta" width="100%" />
+                        </div>
+                        <div class="card">
+                            <div class="item item-divider">Alternativa correta: </div>
+                            <label class="item item-input">
+                                <input type="text" ng-model="perguntaSelecionada.alternativas[perguntaSelecionada.alternativaCorreta].nome" />
+                        </div>
+                        <div class="card">
+                            <div class="item item-divider">Resposta aluno: </div>
+                            <label class="item item-input">
+                                <input type="text" ng-model="respostaAluno.nome" />
+                        </div>
+                        <button class="button button-block iris-button" ng-click="voltar()">Voltar</button>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+            <button class="button button-block iris-button" ng-click="voltarRelatorios()">Voltar</button>
         </div>
-        <div class="card padding">
-            <h4 style="text-align: center">{{resultado.teste.nome}}</h4>
-            <p>Total de questôes: {{resultado.teste.perguntas.length}}</p>
-            <p>Quantidade de acertos: {{qtdCorretas}}</p>
-            <p>Porcentagem de acertos: {{porcentagemCorretas}}%</p>
-        </div>
-        <div class="card padding">
-            <h4 style="text-align: center">Questões</h4>
-            <ion-list>
-                <ion-item ng-style="isCorrect(pergunta)" ng-repeat="pergunta in resultado.teste.perguntas" type="item-text-wrap" ng-click="perguntaClicked(pergunta)">
-                    <p>{{pergunta.nome}}</p>
-                </ion-item>
-            </ion-list>
-        </div>
-        <script id="visualizar-pergunta.html" type="text/ng-template">
-            <ion-modal-view view title="Visualizar pergunta">
-                <div class="bar bar-header bar-positive">
-                    <h1 class="title">{{resultado.teste.nome}}</h1>
-                </div>
-                <ion-content class="padding has-header">
-                    <div class="card">
-                        <div class="item item-text-wrap">{{perguntaSelecionada.nome}}</div>
-                    </div>
-                    <div class="card" style="text-align: center">
-                        <img ng-src="data:image/jpg;base64,{{imagemPergunta}}" ng-show="imagemPergunta" width="100%" />
-                    </div>
-                    <div class="card">
-                        <div class="item item-divider">Alternativa correta: </div>
-                        <label class="item item-input">
-                        <input type="text" ng-model="perguntaSelecionada.alternativas[perguntaSelecionada.alternativaCorreta].nome"/>
-                    </div>
-                    <div class="card">
-                        <div class="item item-divider">Resposta aluno: </div>
-                        <label class="item item-input">
-                        <input type="text" ng-model="respostaAluno.nome"/>
-                    </div>
-                    <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>     
-                </ion-content>
-            </ion-modal-view>
-        </script>
-    <button class="button button-block button-positive" ng-click="voltarRelatorios()">Voltar</button>
-  </ion-content>
+    </ion-content>
 </ion-view>

@@ -2,37 +2,39 @@
     <div class="bar bar-header bar-positive">
         <h1 class="title">Relatório aluno</h1>
     </div>
-    <ion-content class="padding has-header">
-        <h3 style="text-align: center; margin-top: 20px">Aluno</h3>
-        <ui-select ng-model="searchAluno.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectStudent()">
-            <ui-select-match placeholder="Escolha um aluno..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
-            <ui-select-choices repeat="aluno in alunos | filter: $select.search track by aluno.nome">
-                <div ng-bind-html="aluno.nome | highlight: $select.search"></div>
-                <small>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <h3 style="text-align: center; margin-top: 20px">Aluno</h3>
+            <ui-select ng-model="searchAluno.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectStudent()">
+                <ui-select-match placeholder="Escolha um aluno..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
+                <ui-select-choices repeat="aluno in alunos | filter: $select.search track by aluno.nome">
+                    <div ng-bind-html="aluno.nome | highlight: $select.search"></div>
+                    <small>
                 RG: {{aluno.rg}}
                 Nascimento: {{aluno.dataNascimento | date: 'dd/MM/yyyy'}}</span>
                 </small>
-            </ui-select-choices>
-        </ui-select>
-        <div ng-show="searchAluno.selected.rg && testes.length > 0">
-            <h3 style="text-align: center; margin-top: 20px">Teste</h3>
-            <ui-select ng-model="searchTeste.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
-                <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
-                <ui-select-choices repeat="teste in testes | filter: $select.search track by teste.nome">
-                    <div ng-bind-html="teste.nome | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
+            <div ng-show="searchAluno.selected.rg && testes.length > 0">
+                <h3 style="text-align: center; margin-top: 20px">Teste</h3>
+                <ui-select ng-model="searchTeste.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
+                    <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
+                    <ui-select-choices repeat="teste in testes | filter: $select.search track by teste.nome">
+                        <div ng-bind-html="teste.nome | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div ng-show="searchAluno.selected.rg && searchTeste.selected.id">
+                <h3 style="text-align: center; margin-top: 20px">Data Teste</h3>
+                <ui-select ng-model="searchResult.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
+                    <ui-select-match placeholder="Escolha uma data..." style="height: 40px">{{$select.selected.data | date: 'dd/MM/yyyy'}}</ui-select-match>
+                    <ui-select-choices repeat="testResult in testResults | orderBy:'data' | filter: $select.search track by testResult.data">
+                        <div ng-bind-html="testResult.data | date: 'dd/MM/yyyy' | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <button class="button button-block iris-button" ng-click="showReport()" ng-show="searchResult.selected" style="margin-top: 40px">Informações teste</button>
+            <button class="button button-block iris-button" ng-click="voltar()" style="margin-top: 20px">Voltar</button>
         </div>
-        <div ng-show="searchAluno.selected.rg && searchTeste.selected.id">
-            <h3 style="text-align: center; margin-top: 20px">Data Teste</h3>
-            <ui-select ng-model="searchResult.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
-                <ui-select-match placeholder="Escolha uma data..." style="height: 40px">{{$select.selected.data | date: 'dd/MM/yyyy'}}</ui-select-match>
-                <ui-select-choices repeat="testResult in testResults | orderBy:'data' | filter: $select.search track by testResult.data">
-                    <div ng-bind-html="testResult.data | date: 'dd/MM/yyyy' | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-        </div>
-        <button class="button button-block button-positive" ng-click="showReport()" ng-show="searchResult.selected" style="margin-top: 40px">Informações teste</button>
-        <button class="button button-block button-positive" ng-click="voltar()" style="margin-top: 20px">Voltar</button>
     </ion-content>
 </ion-view>

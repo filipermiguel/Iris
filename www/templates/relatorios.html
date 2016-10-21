@@ -2,10 +2,40 @@
     <div class="bar bar-header bar-positive">
         <h1 class="title">Relatórios</h1>
     </div>
-	<ion-content class="padding has-header">
-        <button class="button button-block button-positive" ng-click="reportsByStudent()">Por Aluno</button>
-        <button class="button button-block button-positive" ng-click="reportsByTest()">Por Teste</button>
-        <button class="button button-block button-positive" ng-click="studentHistoricByTest()">Histórico aluno</button>
-        <button class="button button-block button-positive" ng-click="voltar()">Voltar</button>
+	<ion-content class="has-header iris-background">
+        <div class="container">
+            <div class="cell-row cell-row-1">
+                <div class="cell-1" ng-click="reportsByStudent()">
+                    <div>
+                        <div><i class="ion-ios-people"></i>
+                        </div>
+                        <div>Por Aluno</div>
+                    </div>
+                </div>
+                <div class="cell-2" ng-click="reportsByTest()">
+                    <div>
+                        <div><i class="ion-document-text"></i>
+                        </div>
+                        <div>Por Teste</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cell-row cell-row-2">
+                <div class="cell-3" ng-click="studentHistoricByTest()">
+                    <div>
+                        <div><i class="ion-ios-copy"></i>
+                        </div>
+                        <div>Histórico aluno</div>
+                    </div>
+                </div>
+                <div class="cell-4" ng-click="voltar()">
+                    <div>
+                        <div><i class="ion-ios-undo"></i>
+                        </div>
+                        <div>Voltar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</ion-content>
 </ion-view>

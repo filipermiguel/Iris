@@ -115,7 +115,7 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
         $scope.infoTeste.aproveitamento = 0;
         
         var successFunction = function() {
-            $state.go('testes');
+            $state.go('escolha-aluno');
         };
         
         Testes.salvarResultado($scope.resultadoTeste).success(successFunction);
@@ -129,6 +129,6 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
     }
 
     $scope.voltar = function(){
-        $state.go('testes');
+        $state.go('escolha-aluno');
     }
 });

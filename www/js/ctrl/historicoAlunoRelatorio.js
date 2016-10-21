@@ -15,6 +15,7 @@ Iris.controller('HistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $r
 		scaleStepWidth: 10,
 		bezierCurve: false,
 		pointDotRadius :10,
+		responsive: true,
 		onAnimationComplete: function () {
             var ctx = this.chart.ctx;
         	ctx.font = this.scale.font;

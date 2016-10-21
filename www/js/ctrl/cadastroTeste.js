@@ -44,7 +44,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
         });
 
         var successFunction = function() {
-            $state.go('testes');
+            $state.go('menu');
         };
 
         if ($scope.teste.id) {
@@ -63,8 +63,13 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
 
     $scope.perguntaClicked = function(pergunta) {
         ESTADO_PERGUNTA = "UPDATE";
-         $scope.questionTitle = "Visualizar questão";
+        $scope.questionTitle = "Visualizar questão";
         $scope.perguntaSelecionada = pergunta;
+        if($scope.isEditing){
+            Testes.getImagemPergunta($scope.teste.id, pergunta.id).success(function(imagem) {
+                $scope.perguntaSelecionada.imagem = imagem;
+            });
+        }
         $scope.alternativaSelecionada.index = $scope.perguntaSelecionada.alternativaCorreta;
         $scope.perguntaModal.show();
     };
@@ -157,7 +162,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     }
 
     $scope.cancelar = function(){
-        $state.go('testes');
+        $state.go('menu');
     }
 
     $scope.removerQuestao = function(index) {
@@ -168,5 +173,5 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
         $scope.alternativaSelecionada.index = null;
         $scope.perguntaSelecionada.alternativas.splice(index, 1);
     }
-
+    
 });
