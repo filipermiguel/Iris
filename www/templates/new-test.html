@@ -1,0 +1,89 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">{{title}}</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <form name="testForm" novalidate>
+                <div class="item item-divider">Descrição:</div>
+                <label class="item item-input" ng-class="{ 'has-error' : testForm.descricaoTeste.$invalid }">
+                    <textarea name="testDescription" msd-elastic ng-readonly="isEditing" ng-model="test.name" ng-minlength="5" ng-minlength="200" placeholder="Digite a descrição do teste..." required></textarea>
+                </label>
+                <div class="form-errors" ng-messages="testForm.testDescription.$error" ng-messages-include="templates/form-errors.html" ng-show="testForm.testDescription.$touched">
+                    <div class="form-error" ng-message="required">Descrição obrigatória.</div>
+                </div>
+                <div class="card">
+                    <div class="item item-divider">Questões:</div>
+                    <ion-list>
+                        <ion-item class="item-remove-animate  item-text-wrap item-icon-right" ng-repeat="question in test.questions" type="item-text-wrap" ng-click="questionClicked(question)">
+                            <p>{{question.name}}</p>
+                            <i class="icon ion-chevron-left icon-accessory"></i>
+                            <ion-option-button class="button-assertive" ng-click="deleteQuestion(question, (($index)))">Remover</ion-option-button>
+                        </ion-item>
+                    </ion-list>
+                    <button class="button icon icon-right ion-android-add" ng-hide="isEditing" ng-click="addQuestion()" style="width: 100%;">
+                        Adicionar questão
+                    </button>
+                </div>
+                <button class="button button-block iris-button" ng-hide="isEditing" ng-click="save()" type="submit" ng-disabled="isSaveTestDisabled(testForm.descricaoTeste.$valid)">Salvar teste</button>
+                <button class="button button-block iris-button" ng-click="cancel()">Cancelar</button>
+            </form>
+
+            <script id="add-question.html" type="text/ng-template">
+                <ion-modal-view view title="Criar pergunta">
+                    <div class="bar bar-header bar-positive">
+                        <h1 class="title">{{questionTitle}}</h1>
+                    </div>
+                    <ion-content class="padding has-header iris-background">
+                        <div class="container">
+                            <form name="questionForm" novalidate>
+                                <div class="item item-divider">Questão:</div>
+                                <label class="item item-input" ng-class="{ 'has-error' : questionForm.questionDescription.$invalid }">
+                                    <textarea name="questionDescription" msd-elastic ng-readonly="isEditing" ng-model="selectedQuestion.name" ng-minlength="5" placeholder="Digite a descrição da questão..." style="min-height: 20px" required></textarea>
+                                </label>
+                                <div class="form-errors" ng-messages="questionForm.questionDescription.$error" ng-messages-include="templates/form-errors.html" ng-show="questionForm.questionDescription.$touched">
+                                    <div class="form-error" ng-message="maxlength"></div>
+                                </div>
+                                <div style="margin-top: 20px; width: 100%; max-height: 400px; text-align: center">
+                                    <img ng-src="data:image/jpg;base64,{{selectedQuestion.image}}" ng-show="selectedQuestion.image && !isEditing" style="width: 100%;"/>
+                                    <img ng-src="{{selectedQuestion.image}}" ng-show="selectedQuestion.image && isEditing" style="width: 100%;"/>
+                                </div>
+                                <button class="button button-block" ng-click="addImage()" ng-hide="isEditing"
+                                style="margin-top: 20px;">
+                                    <span ng-show="selectedQuestion.image">Alterar imagem</span>
+                                    <span ng-show="!selectedQuestion.image">Adicionar imagem</span>
+                                </button>
+                                <div class="item item-divider" style="margin-top: 20px;">Alternativas: </div>
+                                <ion-list>
+                                    <ion-radio class="item item-text-wrap item-icon-right item-radio" ng-disabled="isEditing" ng-repeat="alternative in selectedQuestion.alternatives" ng-value="(( $index ))" ng-model="selectedAlternative.index" name="nome">{{alternative.name}}
+                                    </ion-radio>
+                                </ion-list>
+                                <label class="item item-input" ng-hide="selectedQuestion.alternatives.length >= 5 || isEditing">
+                                    <textarea msd-elastic placeholder="Digite a descrição da alternativa..." ng-model="newAlternative.name" style="min-height: 40px"></textarea>
+                                </label>
+                                <button class="button icon icon-right ion-android-add" ng-hide="selectedQuestion.alternatives.length >= 5 || isEditing" ng-click="addAlternative()" style="width: 100%;">
+                                    Adicionar alternativa
+                                </button>
+                                <button class="button icon icon-right ion-android-remove" ng-show="selectedAlternative.index != null && !isEditing" ng-click="deleteAlternative(selectedAlternative.index)" style="width: 100%;">
+                                    Remover alternativa selecionada
+                                </button>
+                                <small ng-hide="isEditing">*Mínimo de 2 e máximo de 5 alternativas</small>
+                                <button class="button button-block iris-button" style="margin-top: 20px" ng-hide="isEditing" type="submit" ng-click="okQuestion(selectedQuestion)" ng-disabled="isAddQuestionDisabled(questionForm.questionDescription.$valid, selectedQuestion)">
+                                    Adicionar questão
+                                </button>
+                                <button class="button button-block iris-button" ng-click="questionCancel(selectedQuestion)">
+                                    Cancelar
+                                </button>
+                            </form>
+                        </div>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+            <script id="templates/form-errors.html" type="text/ng-template">
+                <div class="form-error" ng-message="required">Descrição obrigatória.</div>
+                <div class="form-error" ng-message="minlength">Descrição deve ter no mínimo 5 caracteres.</div>
+                <div class="form-error" ng-message="maxlength">Descrição deve ter no máximo 200 caracteres.</div>
+            </script>
+        </div>
+    </ion-content>
+</ion-view>

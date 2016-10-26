@@ -1,0 +1,42 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">{{test.name}}</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <div class="card">
+                <div class="item item-text-wrap">{{currentQuestion.name}}</div>
+            </div>
+            <div style="width: 100%; max-height: 400px; text-align: center">
+                <img ng-src="{{questionImage}}" ng-show="questionImage" style="width: 100%;"/>
+            </div>
+            <div class="card">
+                <div class="item item-divider">Alternativas: </div <ion-list>
+                <ion-radio class="item item-icon-right item-text-wrap item-radio" ng-repeat="alternative in currentQuestion.alternatives" ng-value="(( $index ))" ng-model="selectedAlternative.index" name="name">{{alternative.name}}</ion-radio>
+                </ion-list>
+            </div>
+            <button class="button button-block iris-button" ng-click="nextQuestion()" type="submit" ng-disabled="selectedAlternative.index == null">Próxima questão</button>
+            <button class="button button-block iris-button" ng-click="back()">Voltar</button>
+
+            <script id="end-test.html" type="text/ng-template">
+                <ion-modal-view view title="Final teste">
+                    <div class="bar bar-header bar-positive">
+                        <h1 class="title">{{test.name}}</h1>
+                    </div>
+                    <ion-content class="padding has-header iris-background">
+                        <div class="card">
+                            <div class="item item-text-wrap">Quantidade de questões: {{infoTest.questionIndex}}</div>
+                        </div>
+                        <div class="card">
+                            <div class="item item-text-wrap">Quantidade acertos: {{infoTest.correctAnswers}}</div>
+                        </div>
+                        <div class="card">
+                            <div class="item item-text-wrap">Aproveitamento: {{infoTeste.efficiency}}%</div>
+                        </div>
+                        <button class="button button-block iris-button" ng-click="testFinalize()" type="submit">Finalizar teste</button>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,42 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Novo usuário</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <form name="form" novalidate>
+
+                <div class="item item-divider" style="margin-top: 20px">Nome: </div>
+                <label class="item item-input" ng-class="{ 'has-error' : form.name.$invalid}">
+                    <input type="text" name="name" ng-model="user.name" ng-minlength="5" placeholder="Digite o nome..." required>
+                </label>
+                <div class="form-errors" ng-messages="form.name.$error" ng-messages-include="templates/form-errors.html" ng-show="form.name.$touched">
+                    <div class="form-error" ng-message="required">Nome obrigatório.</div>
+                </div>
+
+                <div class="item item-divider" style="margin-top: 20px">Senha: </div>
+                <label class="item item-input" ng-class="{ 'has-error' : form.password.$invalid}">
+                    <input type="password" name="password" ng-model="user.password" ng-minlength="5" placeholder="Digite a senha..." required>
+                </label>
+                <div class="form-errors" ng-messages="form.password.$error" ng-messages-include="templates/form-errors.html" ng-show="form.password.$touched">
+                    <div class="form-error" ng-message="required">Senha obrigatória.</div>
+                </div>
+
+                <div class="item item-divider" style="margin-top: 20px">Confirmar senha: </div>
+                <label class="item item-input" ng-class="{ 'has-error' : form.confirmPassword.$invalid}">
+                    <input type="password" name="confirmPassword" ng-model="user.confirmPassword" ng-minlength="5" placeholder="Confirme a senha..." required>
+                </label>
+                <div class="form-errors" ng-messages="form.confirmPassword.$error" ng-messages-include="templates/form-errors.html" ng-show="form.confirmPassword.$touched">
+                    <div class="form-error" ng-message="required">Senha obrigatória.</div>
+                </div>
+
+                <button class="button button-block iris-button" ng-click="save()" type="submit" ng-disabled="form.$invalid" style="margin-top: 20px">Salvar</button>
+                <button class="button button-block iris-button" ng-click="cancel()" style="margin-top: 20px">Cancelar</button>
+            </form>
+            <script id="templates/form-errors.html" type="text/ng-template">
+                <div class="form-error" ng-message="required">Campo obrigatório.</div>
+                <div class="form-error" ng-message="minlength">Campo deve ter no mínimo 5 caracteres.</div>
+            </script>
+        </div>
+    </ion-content>
+</ion-view>

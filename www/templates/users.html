@@ -1,0 +1,41 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Relatórios</h1>
+    </div>
+	<ion-content class="has-header iris-background">
+        <div class="container">
+            <div class="cell-row cell-row-1" ng-show="showAdminMenu()">
+                <div class="cell-1" ng-click="createUser()">
+                    <div>
+                        <div><i class="ion-person-add"></i>
+                        </div>
+                        <div>Novo usuário</div>
+                    </div>
+                </div>
+                <div class="cell-2" ng-click="deleteUser()">
+                    <div>
+                        <div><i class="ion-close-circled"></i>
+                        </div>
+                        <div>Excluir usuário</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cell-row cell-row-2">
+                <div class="cell-3" ng-click="changePassword()">
+                    <div>
+                        <div><i class="ion-ios-locked"></i>
+                        </div>
+                        <div>Alterar senha</div>
+                    </div>
+                </div>
+                <div class="cell-4" ng-click="back()">
+                    <div>
+                        <div><i class="ion-ios-undo"></i>
+                        </div>
+                        <div>Voltar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</ion-content>
+</ion-view>

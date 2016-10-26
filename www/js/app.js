@@ -1,4 +1,4 @@
-var serverAddress = "http://192.168.0.12:8081/iris-server";
+var serverAddress = "http://192.168.0.12:8080/iris-server";
 
 Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages', 'monospaced.elastic', 'angular-cache' ])
 
@@ -32,114 +32,114 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         templateUrl: 'templates/menu.html',
         controller: 'MenuCtrl'
     })
-    .state('testes', {
+    .state('tests', {
         cache: false,
-        url: '/testes',
-        templateUrl: 'templates/testes.html',
-        controller: 'TestesCtrl'
+        url: '/tests',
+        templateUrl: 'templates/tests.html',
+        controller: 'TestsCtrl'
     })
-    .state('cadastro-teste', {
+    .state('new-test', {
         cache: false,
-        url: '/cadastro-teste/:testeId',
-        templateUrl: 'templates/cadastro-teste.html',
-        controller: 'CadastroTesteCtrl'
+        url: '/new-test/:testId',
+        templateUrl: 'templates/new-test.html',
+        controller: 'NewTestCtrl'
     })
-    .state('realiza-teste', {
-        url: '/realiza-teste/:testeId',
-        templateUrl: 'templates/realiza-teste.html',
-        controller: 'RealizaTesteCtrl',
+    .state('execute-test', {
+        url: '/execute-test/:testId',
+        templateUrl: 'templates/execute-test.html',
+        controller: 'ExecuteTestCtrl',
         cache: false,
         params: {
             rg: null,
             id: null
         }
     })
-    .state('cadastro-aluno', {
-        url: '/cadastro-aluno',
-        templateUrl: 'templates/cadastro-aluno.html',
-        controller: 'CadastroAlunoCtrl'
+    .state('new-student', {
+        url: '/new-student',
+        templateUrl: 'templates/new-student.html',
+        controller: 'NewStudentCtrl'
     })    
-    .state('escolha-aluno', {
+    .state('choose-student-test', {
         cache: false,
-        url: '/escolha-aluno',
-        templateUrl: 'templates/escolha-aluno.html',
-        controller: 'EscolhaAlunoCtrl'
+        url: '/choose-student-test',
+        templateUrl: 'templates/choose-student-test.html',
+        controller: 'ChooseStudentTestCtrl'
     })
-    .state('relatorios', {
-        url: '/relatorios',
-        templateUrl: 'templates/relatorios.html',
-        controller: 'RelatoriosCtrl'
+    .state('reports', {
+        url: '/reports',
+        templateUrl: 'templates/reports.html',
+        controller: 'ReportsCtrl'
     })
-    .state('escolha-aluno-relatorio', {
+    .state('choose-student-report', {
         cache: false,
-        url: '/escolha-aluno-relatorio',
-        templateUrl: 'templates/escolha-aluno-relatorio.html',
-        controller: 'EscolhaAlunoRelatorioCtrl'
+        url: '/choose-student-report',
+        templateUrl: 'templates/choose-student-report.html',
+        controller: 'ChooseStudentReportCtrl'
     })
-    .state('relatorio-aluno', {
-        url: '/relatorio-aluno',
-        templateUrl: 'templates/relatorio-aluno.html',
-        controller: 'RelatorioAlunoCtrl',
+    .state('student-report', {
+        url: '/student-report',
+        templateUrl: 'templates/student-report.html',
+        controller: 'StudentReportCtrl',
         params: {
-            resultado: null,
-            origem: null,
-            historicoResultados: []
+            result: null,
+            origin: null,
+            historicResults: []
         }
     })
-    .state('escolha-teste-relatorio', {
+    .state('choose-test-report', {
         cache: false,
-        url: '/escolha-teste-relatorio',
-        templateUrl: 'templates/escolha-teste-relatorio.html',
-        controller: 'EscolhaTesteRelatorioCtrl'
+        url: '/choose-test-report',
+        templateUrl: 'templates/choose-test-report.html',
+        controller: 'ChooseTestReportCtrl'
     })    
-    .state('escolha-resultado-relatorio', {
+    .state('choose-result-report', {
         cache: false,
-        url: '/escolha-resultado-relatorio',
-        templateUrl: 'templates/escolha-resultado-relatorio.html',
-        controller: 'EscolhaResultadoRelatorioCtrl',
+        url: '/choose-result-report',
+        templateUrl: 'templates/choose-result-report.html',
+        controller: 'ChooseResultReportCtrl',
         params: {
-            teste: null,
-            aproveitamento: { minimo: null, maximo: null},
-            periodo: { inicio: null, fim: null}
+            test: null,
+            efficiency: { minimum: null, maximum: null},
+            period: { initialDate: null, endDate: null}
         }
     })
-    .state('escolha-historico-aluno-relatorio', {
+    .state('choose-student-historic-report', {
         cache: false,
-        url: '/escolha-historico-aluno-relatorio',
-        templateUrl: 'templates/escolha-historico-aluno-relatorio.html',
-        controller: 'EscolhaHistoricoAlunoRelatorioCtrl'
+        url: '/choose-student-historic-report',
+        templateUrl: 'templates/choose-student-historic-report.html',
+        controller: 'ChooseStudentHistoricReportCtrl'
     })
-    .state('historico-aluno-relatorio', {
+    .state('student-historic-report', {
         cache: false,
-        url: '/historico-aluno-relatorio',
-        templateUrl: 'templates/historico-aluno-relatorio.html',
-        controller: 'HistoricoAlunoRelatorioCtrl',
+        url: '/student-historic-report',
+        templateUrl: 'templates/student-historic-report.html',
+        controller: 'StudentHistoricReportCtrl',
         params: {
-            historicoResultados: []
+            historicResults: []
         }
     })    
-    .state('cadastro-usuario', {
+    .state('new-user', {
         cache: false,
-        url: '/cadastro-usuario',
-        templateUrl: 'templates/cadastro-usuario.html',
-        controller: 'CadastroUsuarioCtrl'
+        url: '/new-user',
+        templateUrl: 'templates/new-user.html',
+        controller: 'NewUserCtrl'
     })
-    .state('usuarios', {
-        url: '/usuarios',
-        templateUrl: 'templates/usuarios.html',
-        controller: 'UsuariosCtrl'
+    .state('users', {
+        url: '/users',
+        templateUrl: 'templates/users.html',
+        controller: 'UsersCtrl'
     })
-    .state('remover-usuario', {
+    .state('delete-user', {
         cache: false,
-        url: '/remover-usuario',
-        templateUrl: 'templates/remover-usuario.html',
-        controller: 'RemoverUsuarioCtrl'
+        url: '/delete-user',
+        templateUrl: 'templates/delete-user.html',
+        controller: 'DeleteUserCtrl'
     })
-    .state('alterar-senha', {
+    .state('change-password', {
         cache: false,
-        url: '/alterar-senha',
-        templateUrl: 'templates/alterar-senha.html',
-        controller: 'AlterarSenhaCtrl'
+        url: '/change-password',
+        templateUrl: 'templates/change-password.html',
+        controller: 'ChangePasswordCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback

@@ -1,0 +1,17 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Relatório teste</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <h3 style="text-align: center;">Resultados</h3>
+            <ion-list>
+                <ion-item class="item-remove-animate item-icon-right" ng-repeat="result in results | orderBy: ['student.name','result.date']" type="item-text-wrap" ng-click="viewStudentResult(result)">
+                    <p>Nome: {{result.student.name}}</p>
+                    <p>Data: {{result.date | date: 'dd/MM/yyyy'}}</p>
+                </ion-item>
+            </ion-list>
+            <button class="button button-block iris-button" ng-click="back()">Voltar</button>
+        </div>
+    </ion-content>
+</ion-view>

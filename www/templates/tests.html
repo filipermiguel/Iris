@@ -1,0 +1,18 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Menu</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+    <div class="container">
+        <div class="item item-divider">Testes cadastrados: </div>
+        <ion-list>
+            <ion-item class="item-remove-animate item-text-wrap item-icon-right" ng-repeat="test in tests | orderBy:'name'" type="item-text-wrap" href="#/new-test/{{test.id}}">
+                <p>{{test.name}}</p>
+                <i class="icon ion-chevron-left icon-accessory"></i>
+                <ion-option-button class="button-assertive" ng-click="deleteTest(test, (($index)))">Remover</ion-option-button>
+            </ion-item>
+        </ion-list>
+        <button class="button button-block iris-button" style="margin-top: 40px" ng-click="back()">Voltar</button>
+    </div>
+    </ion-content>
+</ion-view>

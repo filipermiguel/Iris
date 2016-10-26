@@ -1,0 +1,35 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Histórico aluno</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <h3 style="text-align: center; margin-top: 20px">Aluno</h3>
+            <ui-select ng-model="searchStudent.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectStudent()">
+                <ui-select-match placeholder="Escolha um aluno..." style="height: 40px">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="student in students | orderBy:'name' | filter: $select.search track by student.name">
+                    <div ng-bind-html="student.name | highlight: $select.search"></div>
+                    <small>
+                RG: {{student.rg}}
+                Nascimento: {{student.birthDate | date: 'dd/MM/yyyy'}}</span>
+                </small>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-show="searchStudent.selected.rg && tests.length > 0">
+                <h3 style="text-align: center; margin-top: 20px">Teste</h3>
+                <ui-select ng-model="searchTest.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" on-select="onSelectTest()">
+                    <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="test in tests | orderBy:'name' | filter: $select.search track by test.name">
+                        <div ng-bind-html="test.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div ng-show="searchStudent.selected && searchTest.selected">
+                <h4>Período:</h4>
+                <rzslider rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+            </div>
+            <button class="button button-block iris-button" ng-click="showReport()" ng-show="searchStudent.selected && searchTest.selected" style="margin-top: 20px">Informações histórico</button>
+            <button class="button button-block iris-button" ng-click="back()" style="margin-top: 20px">Voltar</button>
+        </div>
+    </ion-content>
+</ion-view>

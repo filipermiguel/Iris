@@ -3,7 +3,7 @@ Iris.controller('LoginCtrl', function($scope, UserService, $ionicPopup, $ionicLo
     $scope.loginData = {};
 
     $scope.login = function() {
-        UserService.login($scope.loginData.nome, $scope.loginData.senha).success(function(user) {
+        UserService.login($scope.loginData.name, $scope.loginData.password).success(function(user) {
             UserService.saveUser(user);
             $state.go("menu");
         }).error(function(data) {

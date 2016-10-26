@@ -1,0 +1,19 @@
+<ion-view>
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Remover usuário</h1>
+    </div>
+    <ion-content class="padding has-header iris-background">
+        <div class="container">
+            <h3 style="text-align: center; margin-top: 20px">Usuário</h3>
+            <ui-select ng-model="searchUser.selected" theme="select2" ng-disabled="disabled" style="width: 100%;">
+                <ui-select-match placeholder="Escolha um usuário..." style="height: 40px">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="user in users | orderBy:'name' | filter: $select.search track by user.name">
+                    <div ng-bind-html="user.name | highlight: $select.search"></div>
+                    {{student.name}}
+                </ui-select-choices>
+            </ui-select>
+            <button class="button button-block iris-button" ng-click="deleteUser()" ng-disabled="isDeleteUserDisabled()" style="margin-top: 40px">Remover o usuário</button>
+            <button class="button button-block iris-button" ng-click="back()" style="margin-top: 20px">Voltar</button>
+        </div>
+    </ion-content>
+</ion-view>

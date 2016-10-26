@@ -1,43 +1,43 @@
-Iris.controller('MenuCtrl', function($scope, $state, $ionicLoading, Testes, AlunoService, UserService) {
+Iris.controller('MenuCtrl', function($scope, $state, $ionicLoading, TestService, UserService, StudentService) {
 	
     //cache tests
-    Testes.getTestes();
+    TestService.getTests();
     //cache students
-    AlunoService.getAlunos($scope.alunos);
+    StudentService.getStudents($scope.students);
 
     $scope.showAdminMenu = function(){
         var currentUser = UserService.getCurrentUser();
-        return currentUser && currentUser.nome == "admin" ? true : false;
+        return currentUser && currentUser.name == "admin" ? true : false;
     }
 
     $scope.tests = function() {
         $ionicLoading.show({hideOnStateChange: true});
-        $state.go('testes');
+        $state.go('tests');
     };
 
-    $scope.register = function() {
+    $scope.newTest = function() {
         $ionicLoading.show({hideOnStateChange: true});
-		$state.go('cadastro-teste');
+		$state.go('new-test');
     };
 
-    $scope.execute = function() {
+    $scope.executeTest = function() {
         $ionicLoading.show({hideOnStateChange: true});
-		$state.go('escolha-aluno');
+		$state.go('choose-student-test');
     };
 
-    $scope.registerStudent = function() {
+    $scope.newStudent = function() {
         $ionicLoading.show({hideOnStateChange: true});
-		$state.go('cadastro-aluno');
+		$state.go('new-student');
     };
 
     $scope.reports = function() {
         $ionicLoading.show({hideOnStateChange: true});
-        $state.go('relatorios');
+        $state.go('reports');
     };
 
-    $scope.usuarios = function() {
+    $scope.users = function() {
         $ionicLoading.show({hideOnStateChange: true});
-        $state.go('usuarios');
+        $state.go('users');
     };
 
     $scope.logOff = function() {

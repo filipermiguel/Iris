@@ -14,32 +14,32 @@ Iris.service('UserService', [ '$http', '$q', '$window', function ($http, $q, $wi
         $window.localStorage["user"] = JSON.stringify(user);
     };
 
-	this.login = function(nome, senha) {
-        return $http.post(serverAddress + "/user/login", { "nome": nome, "senha": senha });
+	this.login = function(name, password) {
+        return $http.post(serverAddress + "/user/login", { "name": name, "password": password });
 	};
     
     this.logoff = function() {
         $window.localStorage["user"] = null;
     }
 	
-	this.criarUsuario = function(nome, senha) {
-		return $http.post(serverAddress + "/user/create", { "nome": nome, "senha": senha });
+	this.createUser = function(name, password) {
+		return $http.post(serverAddress + "/user/create", { "name": name, "password": password });
 	};
     
-    this.getUsuario = function(nome) {
-        return $http.get(serverAddress + "/user/nome/" + nome);
+    this.getUser = function(name) {
+        return $http.get(serverAddress + "/user/name/" + name);
     };
 
-    this.getUsuarios = function() {
+    this.getUsers = function() {
         return $http.get(urlBase);
     };
 
-    this.removerUsuario = function(id) {
+    this.deleteUser = function(id) {
         return $http.delete(urlBase + id);
     };
 
-    this.alterarSenha = function(id, senha) {
-        return $http.post(urlBase + "id/" + id + "/alterarSenha/" + senha);
+    this.changePassword = function(id, password) {
+        return $http.post(urlBase + "id/" + id + "/changePassword/" + password);
     };
 
 }]);
