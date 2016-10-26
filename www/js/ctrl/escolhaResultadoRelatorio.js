@@ -1,4 +1,4 @@
-Iris.controller('EscolhaResultadoRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading, Testes) {
+Iris.controller('EscolhaResultadoRelatorioCtrl', function($scope, $state, $ionicLoading, Testes) {
 
 	$scope.teste = $state.params.teste;
 	$scope.aproveitamento = $state.params.aproveitamento;

@@ -1,4 +1,4 @@
-Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $stateParams, $ionicLoading, $ionicModal, Testes, AlunoService) {   
+Iris.controller('RealizaTesteCtrl', function($scope, $state, $ionicLoading, $ionicModal, Testes, AlunoService) {   
 
     $scope.teste = {
         nome: "",
@@ -17,7 +17,6 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
 
     $scope.resultadoJSON = [];
 
-    $scope.perguntas = [];
     $scope.perguntaAtual;
     $scope.alternativaSelecionada = { index : null }; 
     $scope.infoTeste = { perguntaIndex: 0, respostasCorretas: 0};
@@ -30,29 +29,19 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
     
     
 	if($state.params.id) {
-		Testes.getTeste($state.params.id).success(function(teste) {
+		Testes.getTeste($state.params.id).then(function(teste) {
 			$scope.teste = teste;
-            $scope.viewTitle = $scope.teste.nome;
-            console.log($scope.teste);
-		});
 
-        AlunoService.getAlunoByRg($state.params.rg).success(function(aluno) {
-            $scope.aluno = aluno;
-            console.log($scope.aluno);
-        });
-
-        Testes.getPerguntas($state.params.id).success(function(perguntas) {
-            $scope.perguntas = perguntas;
-        });
-
-
-        Testes.getPrimeiraPergunta($state.params.id).success(function(primeiraPergunta) {
-            $scope.perguntaAtual = primeiraPergunta;
+            $scope.perguntaAtual = $scope.teste.perguntas[0];
             $scope.infoTeste.perguntaIndex = 1;
 
-            Testes.getImagemPergunta($state.params.id, $scope.perguntaAtual.id).success(function(imagem) {
+            Testes.getImagemPergunta($state.params.id, $scope.perguntaAtual.id).then(function(imagem) {
                 $scope.imagemPergunta = imagem;
             });
+		});
+
+        AlunoService.getAlunoByRg($state.params.rg).then(function(aluno) {
+            $scope.aluno = aluno;
         });
 	}
 	
@@ -80,10 +69,10 @@ Iris.controller('RealizaTesteCtrl', function($scope, $cordovaCamera, $state, $st
 
         $scope.alternativaSelecionada.index = null;
 
-        if($scope.infoTeste.perguntaIndex > 0 && $scope.infoTeste.perguntaIndex < $scope.perguntas.length){
-            $scope.perguntaAtual = $scope.perguntas[$scope.infoTeste.perguntaIndex];
+        if($scope.infoTeste.perguntaIndex > 0 && $scope.infoTeste.perguntaIndex < $scope.teste.perguntas.length){
+            $scope.perguntaAtual = $scope.teste.perguntas[$scope.infoTeste.perguntaIndex];
 
-            Testes.getImagemPergunta($state.params.id, $scope.perguntaAtual.id).success(function(imagem) {
+            Testes.getImagemPergunta($state.params.id, $scope.perguntaAtual.id).then(function(imagem) {
                 $scope.imagemPergunta = imagem;
             });
 

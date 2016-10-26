@@ -1,26 +1,24 @@
-Iris.service('UserService', function ($http, $window) {
+Iris.service('UserService', [ '$http', '$q', '$window', function ($http, $q, $window) {
 
 	var urlBase = serverAddress + '/user/';
-    var user = null;
 
-	this.getUser = function() {
-        var localUser = null;
+	this.getCurrentUser = function() {
+        var currentUser = null;
         if ($window.localStorage["user"]) {
-            localUser = JSON.parse($window.localStorage["user"]) 
+            currentUser = JSON.parse($window.localStorage["user"]) 
         }
-        return user || localUser;
+        return currentUser;
     };
-    
-    this.saveUser = function(_user) {
-        user = _user;
+
+    this.saveUser = function(user) {
         $window.localStorage["user"] = JSON.stringify(user);
     };
 
 	this.login = function(nome, senha) {
-		return $http.post(serverAddress + "/user/login", { "nome": nome, "senha": senha });
+        return $http.post(serverAddress + "/user/login", { "nome": nome, "senha": senha });
 	};
     
-    this.logout = function() {
+    this.logoff = function() {
         $window.localStorage["user"] = null;
     }
 	
@@ -32,4 +30,16 @@ Iris.service('UserService', function ($http, $window) {
         return $http.get(serverAddress + "/user/nome/" + nome);
     };
 
-});
+    this.getUsuarios = function() {
+        return $http.get(urlBase);
+    };
+
+    this.removerUsuario = function(id) {
+        return $http.delete(urlBase + id);
+    };
+
+    this.alterarSenha = function(id, senha) {
+        return $http.post(urlBase + "id/" + id + "/alterarSenha/" + senha);
+    };
+
+}]);

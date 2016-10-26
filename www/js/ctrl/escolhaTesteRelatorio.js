@@ -1,4 +1,4 @@
-Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading, Testes) {
+Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $state, $ionicLoading, Testes) {
 
 	var today = new Date();
 	var todayz = new Date();
@@ -27,7 +27,7 @@ Iris.controller('EscolhaTesteRelatorioCtrl', function($scope, $stateParams, $roo
     	fim: today
     };
 
-    Testes.getTestes().success(function(testes) {
+    Testes.getTestes().then(function(testes) {
         $scope.testes = testes;
     });
 

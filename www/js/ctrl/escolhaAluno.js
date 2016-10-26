@@ -1,13 +1,13 @@
-Iris.controller('EscolhaAlunoCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading, $ionicPopup, AlunoService, Testes) {
+Iris.controller('EscolhaAlunoCtrl', function($scope, $state, $ionicLoading, $ionicPopup, AlunoService, Testes) {
 
 	$scope.searchAluno = {};
 	$scope.searchTeste = {};
 
-	AlunoService.getAlunos($scope.alunos).success(function(alunos) {
+	AlunoService.getAlunos($scope.alunos).then(function(alunos) {
 		$scope.alunos = alunos;
 	});
 
-	Testes.getTestes().success(function(testes) {
+	Testes.getTestes().then(function(testes) {
         $scope.testes = testes;
     });
 
@@ -36,6 +36,6 @@ Iris.controller('EscolhaAlunoCtrl', function($scope, $stateParams, $rootScope, $
 
     $scope.voltar = function() {
         $ionicLoading.show({hideOnStateChange: true});
-        $state.go('relatorios');
+        $state.go('menu');
     }
 })

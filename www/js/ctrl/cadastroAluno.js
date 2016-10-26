@@ -1,4 +1,4 @@
-Iris.controller('CadastroAlunoCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal, AlunoService) {
+Iris.controller('CadastroAlunoCtrl', function($scope, $state, AlunoService) {
 
     $scope.aluno = {
         rg: null,
@@ -8,10 +8,10 @@ Iris.controller('CadastroAlunoCtrl', function($scope, $state, $stateParams, $ion
 
 	$scope.salvar = function() {
         var successFunction = function() {
-            $state.go('testes');
+            $state.go('menu');
         };
 
-		AlunoService.criarAluno($scope.aluno).success(successFunction);
+		AlunoService.criarAluno($scope.aluno).then(successFunction);
 	}
 
     $scope.cancelar = function(){

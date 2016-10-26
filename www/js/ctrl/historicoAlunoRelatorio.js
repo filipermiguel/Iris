@@ -1,4 +1,4 @@
-Iris.controller('HistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state) {
+Iris.controller('HistoricoAlunoRelatorioCtrl', function($scope, $state) {
 
 	$scope.resultados = $state.params.historicoResultados;
 	$scope.datas = [];

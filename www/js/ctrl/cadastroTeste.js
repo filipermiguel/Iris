@@ -1,13 +1,10 @@
-Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFile, $state, $stateParams, $ionicPopup, $ionicLoading, $ionicModal, Testes) {
-
-    $scope.teste = {
-        nome: null,
-        perguntas: []
-    };
+Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFile, $state, $stateParams, $ionicLoading, $ionicModal, Testes) {
 
     var ESTADO_PERGUNTA = null;
 
-    $scope.viewTitle = "Criar teste";
+    $scope.teste = {
+        perguntas: []
+    };
     $scope.novaPergunta = {
         nome: "",
         alternativas: [],
@@ -31,9 +28,8 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     if ($stateParams.testeId) {
         $scope.title = "Visualizar teste";
         $scope.isEditing = true;
-        Testes.getTeste($stateParams.testeId).success(function(teste) {
+        Testes.getTeste($stateParams.testeId).then(function(teste) {
             $scope.teste = teste;
-            console.log($scope.teste);
         });
     }
 
@@ -47,11 +43,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
             $state.go('menu');
         };
 
-        if ($scope.teste.id) {
-            Testes.atualizarTeste($scope.teste).success(successFunction);
-        } else {
-            Testes.criarTeste($scope.teste).success(successFunction);
-        }
+        Testes.criarTeste($scope.teste).then(successFunction);
     }
 
     $scope.addPergunta = function() {
@@ -66,7 +58,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
         $scope.questionTitle = "Visualizar questão";
         $scope.perguntaSelecionada = pergunta;
         if($scope.isEditing){
-            Testes.getImagemPergunta($scope.teste.id, pergunta.id).success(function(imagem) {
+            Testes.getImagemPergunta($scope.teste.id, pergunta.id).then(function(imagem) {
                 $scope.perguntaSelecionada.imagem = imagem;
             });
         }
@@ -138,8 +130,8 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
 
             onImageSuccess(imageData);
 
-            function onImageSuccess(fileURI) {
-                $scope.perguntaSelecionada.imagem = fileURI;
+            function onImageSuccess(dataURL) {
+                $scope.perguntaSelecionada.imagem = dataURL;
             }
 
         }, function(err) {
@@ -162,7 +154,7 @@ Iris.controller('CadastroTesteCtrl', function($scope, $cordovaCamera, $cordovaFi
     }
 
     $scope.cancelar = function(){
-        $state.go('menu');
+        $state.go('testes');
     }
 
     $scope.removerQuestao = function(index) {

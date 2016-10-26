@@ -1,22 +1,33 @@
-Iris.controller('CadastroUsuarioCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal, UserService) {
+Iris.controller('CadastroUsuarioCtrl', function($scope, $state, $ionicLoading, $ionicPopup, UserService) {
 
-    $scope.usuario = {};
+    $scope.usuario = {
+        nome: "",
+        senha: "",
+        confirmarSenha: ""
+    };
 
     $scope.salvar = function() {
-        UserService.criarUsuario($scope.usuario.nome, $scope.usuario.senha).success(function(user) {
-            UserService.saveUser(user);
-            $state.go("testes");
-        }).error(function(data) {
+        if($scope.usuario.senha == $scope.usuario.confirmarSenha){
+            UserService.criarUsuario($scope.usuario.nome, $scope.usuario.senha).success(function(user) {
+                $state.go("usuarios");
+            }).error(function(data) {
+                $ionicLoading.hide();
+                $ionicPopup.alert({
+                    title: 'Falha no cadastro!',
+                    template: 'Já existe um usuário com este nome'
+                });
+            });
+        } else {
             $ionicLoading.hide();
             $ionicPopup.alert({
                 title: 'Falha no cadastro!',
-                template: 'Ocorreu uma falha no cadastro!'
+                template: 'Senhas não conferem.'
             });
-        });
+        }
     }
 
     $scope.cancelar = function(){
-        $state.go('menu');
+        $state.go('usuarios');
     }
 
 });

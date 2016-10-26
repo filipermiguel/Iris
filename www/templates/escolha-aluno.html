@@ -7,7 +7,7 @@
             <h3 style="text-align: center; margin-top: 20px">Aluno</h3>
             <ui-select ng-model="searchAluno.selected" theme="select2" ng-disabled="disabled" style="width: 100%;">
                 <ui-select-match placeholder="Escolha um aluno..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
-                <ui-select-choices repeat="aluno in alunos | filter: $select.search track by aluno.nome">
+                <ui-select-choices repeat="aluno in alunos | orderBy:'nome' | filter: $select.search track by aluno.nome">
                     <div ng-bind-html="aluno.nome | highlight: $select.search"></div>
                     <small>
                 RG: {{aluno.rg}}
@@ -18,7 +18,7 @@
             <h3 style="text-align: center; margin-top: 20px">Teste</h3>
             <ui-select ng-model="searchTeste.selected" theme="select2" ng-disabled="disabled" style="width: 100%;">
                 <ui-select-match placeholder="Escolha um teste..." style="height: 40px">{{$select.selected.nome}}</ui-select-match>
-                <ui-select-choices repeat="teste in testes | filter: $select.search track by teste.nome">
+                <ui-select-choices repeat="teste in testes | orderBy:'nome' | filter: $select.search track by teste.nome">
                     <div ng-bind-html="teste.nome | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>

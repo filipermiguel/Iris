@@ -1,4 +1,4 @@
-Iris.controller('RelatoriosCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicLoading) {
+Iris.controller('RelatoriosCtrl', function($scope, $state, $ionicLoading) {
 
     $scope.reportsByStudent = function() {
         $ionicLoading.show({hideOnStateChange: true});

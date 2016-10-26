@@ -1,6 +1,6 @@
 var serverAddress = "http://192.168.0.12:8081/iris-server";
 
-Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages', 'monospaced.elastic' ])
+Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages', 'monospaced.elastic', 'angular-cache' ])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -22,6 +22,7 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
 .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('login', {
+        cache: false,
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
@@ -52,12 +53,6 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
             rg: null,
             id: null
         }
-    })
-    .state('perfil', {
-        cache: false,
-        url: '/perfil',
-        templateUrl: 'templates/perfil.html',
-        controller: 'PerfilCtrl'
     })
     .state('cadastro-aluno', {
         url: '/cadastro-aluno',
@@ -128,9 +123,32 @@ Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'c
         url: '/cadastro-usuario',
         templateUrl: 'templates/cadastro-usuario.html',
         controller: 'CadastroUsuarioCtrl'
+    })
+    .state('usuarios', {
+        url: '/usuarios',
+        templateUrl: 'templates/usuarios.html',
+        controller: 'UsuariosCtrl'
+    })
+    .state('remover-usuario', {
+        cache: false,
+        url: '/remover-usuario',
+        templateUrl: 'templates/remover-usuario.html',
+        controller: 'RemoverUsuarioCtrl'
+    })
+    .state('alterar-senha', {
+        cache: false,
+        url: '/alterar-senha',
+        templateUrl: 'templates/alterar-senha.html',
+        controller: 'AlterarSenhaCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
 
+})
+
+.config(function (CacheFactoryProvider) {
+    angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 });
+
+

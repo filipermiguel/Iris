@@ -1,4 +1,4 @@
-Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $stateParams, $rootScope, $http, $state, $ionicPopup, $ionicLoading, $ionicScrollDelegate, AlunoService) {
+Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $state, $ionicPopup, $ionicLoading, AlunoService) {
 
 	$scope.slider = {};
 	var datas = [];
@@ -11,7 +11,7 @@ Iris.controller('EscolhaHistoricoAlunoRelatorioCtrl', function($scope, $statePar
 		selected: null
 	};
 
-	AlunoService.getAlunos($scope.alunos).success(function(alunos) {
+	AlunoService.getAlunos($scope.alunos).then(function(alunos) {
 		$scope.alunos = alunos;
 	});
 

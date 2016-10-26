@@ -1,10 +1,6 @@
-Iris.controller('LoginCtrl', function($scope, $rootScope, UserService, $ionicPopup, $ionicLoading, $state) {
+Iris.controller('LoginCtrl', function($scope, UserService, $ionicPopup, $ionicLoading, $state) {
 	
     $scope.loginData = {};
-    
-    //if (UserService.getUser()) {
-    //    $state.go("testes");
-    //};
 
     $scope.login = function() {
         UserService.login($scope.loginData.nome, $scope.loginData.senha).success(function(user) {
