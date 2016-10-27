@@ -36,7 +36,9 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
             $scope.infoTest.questionIndex = 1;
 
             TestService.getQuestionImage($state.params.id, $scope.currentQuestion.id).then(function(image) {
-                $scope.questionImage = image;
+                if (image) {
+                    $scope.questionImage = "data:image/jpg;base64," + image;
+                }
             });
 		});
 
@@ -51,8 +53,8 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
 
             var result = {
                 question: $scope.currentQuestion.id,
-                answer: $scope.currentQuestion.questions[$scope.selectedAlternative.index].id,
-                isCorret: true
+                answer: $scope.currentQuestion.alternatives[$scope.selectedAlternative.index].id,
+                isCorrect: true
             };
 
             $scope.resultJSON.push(result);
@@ -61,19 +63,22 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
             var result = {
                 question: $scope.currentQuestion.id,
                 answer: $scope.currentQuestion.questions[$scope.selectedAlternative.index].id,
-                isCorret: false
+                isCorrect: false
             };
 
             $scope.resultJSON.push(result);
         }
 
         $scope.selectedAlternative.index = null;
+        $scope.questionImage = null;
 
         if($scope.infoTest.questionIndex > 0 && $scope.infoTest.questionIndex < $scope.test.questions.length){
             $scope.currentQuestion = $scope.test.questions[$scope.infoTest.questionIndex];
 
             TestService.getQuestionImage($state.params.id, $scope.currentQuestion.id).then(function(image) {
-                $scope.questionImage = image;
+                if (image) {
+                    $scope.questionImage = "data:image/jpg;base64," + image;
+                }
             });
 
             $scope.infoTest.questionIndex++;
@@ -104,7 +109,7 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
         $scope.infoTest.efficiency = 0;
         
         var successFunction = function() {
-            $state.go('choose-student');
+            $state.go('choose-student-test');
         };
         
         TestService.saveResult($scope.testResult).success(successFunction);
@@ -118,6 +123,6 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
     }
 
     $scope.back = function(){
-        $state.go('choose-student');
+        $state.go('choose-student-test');
     }
 });

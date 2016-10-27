@@ -4,8 +4,8 @@ Iris.controller('TestsCtrl', function($scope, $state, $ionicLoading, $ionicPopup
         $scope.tests = tests;
     });
 
-	$scope.removerTeste = function(test, index) {
-        TestService.deleteTeste(test.id).then(function(isRemoved) {
+	$scope.deleteTest = function(test, index) {
+        TestService.deleteTest(test.id).then(function(isRemoved) {
             if(isRemoved){
                 $scope.tests.splice(index, 1);
             } else {

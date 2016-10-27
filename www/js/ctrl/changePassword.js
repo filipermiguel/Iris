@@ -2,8 +2,23 @@ Iris.controller('ChangePasswordCtrl', function($scope, $state, $ionicLoading, $i
 
     $scope.user = UserService.getCurrentUser();
     $scope.userInfo = {
+        oldPassword: "",
         password: "",
         confirmPassword: ""
+    };
+    $scope.isOldPasswordCorrect = false;
+
+    $scope.onFillOldPassword = function() {
+        if($scope.userInfo.oldPassword != "" && $scope.userInfo.oldPassword != $scope.user.password) {
+            $scope.isOldPasswordCorrect = false;
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+                title: 'Falha na alteração!',
+                template: 'Senha antiga não está correta.'
+            });
+        } else {
+            $scope.isOldPasswordCorrect = true;
+        }
     };
 
     $scope.changePassword = function() {
@@ -18,10 +33,17 @@ Iris.controller('ChangePasswordCtrl', function($scope, $state, $ionicLoading, $i
                 template: 'Senhas não conferem.'
             });
         }
+    };
+
+    $scope.isChangePasswordValid = function(isValid){
+        if(isValid && $scope.isOldPasswordCorrect) {
+            return true;
+        }
+        return false;
     }
 
     $scope.cancel = function(){
         $state.go('users');
-    }
+    };
 
 });

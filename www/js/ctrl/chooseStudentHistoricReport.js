@@ -11,13 +11,13 @@ Iris.controller('ChooseStudentHistoricReportCtrl', function($scope, $state, $ion
 		selected: null
 	};
 
-	StudentService.getStudents($scope.students).then(function(students) {
+	StudentService.getStudents().then(function(students) {
 		$scope.students = students;
 	});
 
 	$scope.showReport = function() {
 		var results = $scope.testResults.filter(function(obj) {
-			return obj.data >= dates[$scope.slider.minValue] && obj.data <= dates[$scope.slider.maxValue];
+			return obj.date >= dates[$scope.slider.minValue] && obj.date <= dates[$scope.slider.maxValue];
 		});
 		$ionicLoading.show({hideOnStateChange: true});
 		$state.go('student-historic-report', { historicResults: results });
@@ -43,7 +43,7 @@ Iris.controller('ChooseStudentHistoricReportCtrl', function($scope, $state, $ion
 			if(testResults.length > 0){
 				$scope.testResults = testResults;
 				for(i = 0; i < testResults.length; i++){
-					dates.push(testResults[i].data);
+					dates.push(testResults[i].date);
 				}
 				$scope.slider = {
 					minValue: 0,

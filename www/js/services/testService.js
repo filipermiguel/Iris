@@ -8,6 +8,12 @@ Iris.service('TestService', ['$http', '$q', '$cordovaFile', 'CacheFactory', func
         deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
     });
 
+    CacheFactory('imageCache', {
+        maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes
+        cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour
+        deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
+    });
+
     this.getTest = function(testId) {
         var deferred = $q.defer();
         var testCache = CacheFactory.get('testCache');
@@ -15,12 +21,15 @@ Iris.service('TestService', ['$http', '$q', '$cordovaFile', 'CacheFactory', func
         if (testCache.get(testId)) {
             deferred.resolve(testCache.get(testId));
         } else {
-            $http.get(urlBase + testId).success(function(data) {
-                testCache.put(data.id.toString(), data);
-                deferred.resolve(data);
+            $http.get(urlBase + testId).success(function(test) {
+                for(i = 0; i < test.questions.length; j++) {
+                    test.questions[i].image = null;
+                }
+                testCache.put(test.id.toString(), test);
+                deferred.resolve(test);
             });
         }
-        return deferred.promise;
+        return deferred.promise;    
     };
 
     this.getTests = function() {
@@ -30,11 +39,14 @@ Iris.service('TestService', ['$http', '$q', '$cordovaFile', 'CacheFactory', func
         if (testCache.values().length > 0) {
             deferred.resolve(testCache.values());
         } else {
-            $http.get(urlBase).success(function(data) {
-                for (i = 0; i < data.length; i++) {
-                    testCache.put(data[i].id.toString(), data[i]);
+            $http.get(urlBase).success(function(tests) {
+                for (i = 0; i < tests.length; i++) {
+                    for(j = 0; j < tests[i].questions.length; j++) {
+                        tests[i].questions[j].image = null;
+                    }
+                    testCache.put(tests[i].id.toString(), tests[i]);
                 }
-                deferred.resolve(data);
+                deferred.resolve(tests);
             });
         }
         return deferred.promise;
@@ -42,17 +54,28 @@ Iris.service('TestService', ['$http', '$q', '$cordovaFile', 'CacheFactory', func
 
     this.getQuestionImage = function(testId, questionId) {
         var deferred = $q.defer();
-        var filename = testId + '-' + questionId + ".jpg"
-        var urlfile = cordova.file.dataDirectory + filename;
+        //var filename = testId + '-' + questionId + ".jpg"
+        //var urlfile = cordova.file.dataDirectory + filename;
+        var imageCache = CacheFactory.get('imageCache');
+        var imageId = testId + '-' +  questionId;
 
-        $cordovaFile.checkFile(cordova.file.dataDirectory, filename).then(function(result){
+        if (imageCache.get(imageId)) {
+            deferred.resolve(imageCache.get(imageId));
+        } else {
+            $http.get(urlBase + testId + "/questionImage/" + questionId).success(function(image) {
+                imageCache.put(imageId, image);
+                deferred.resolve(image);
+            });
+        }  
+
+        /*$cordovaFile.checkFile(cordova.file.dataDirectory, filename).then(function(result){
         	deferred.resolve(urlfile);
         }, function(err){
         	$http.get(urlBase + testId + "/questionImage/" + questionId).success(function (data) {
 				savebase64AsImageFile(cordova.file.dataDirectory, filename, data, "image/jpg");
           		deferred.resolve(urlfile);
           	});
-        });
+        });*/
 
       	return deferred.promise;
     };
@@ -61,9 +84,12 @@ Iris.service('TestService', ['$http', '$q', '$cordovaFile', 'CacheFactory', func
         var deferred = $q.defer();
         var testCache = CacheFactory.get('testCache');
 
-        $http.post(urlBase + "create", test).success(function(data) {
-            testCache.put(data.id.toString(), data);
-            deferred.resolve(data);
+        $http.post(urlBase + "create", test).success(function(test) {
+            for(i = 0; i < test.questions.length; i++) {
+                test.questions[i].image = null;
+            }
+            testCache.put(test.id.toString(), test);
+            deferred.resolve(test);
         });
 
         return deferred.promise;

@@ -3,7 +3,7 @@ Iris.controller('StudentHistoricReportCtrl', function($scope, $state) {
 	$scope.results = $state.params.historicResults;
 	$scope.dates = [];
 	$scope.labels = [];
-	$scope.date = [];
+	$scope.data = [];
 	$scope.series = ['Results'];
 
 	$scope.options = {
@@ -55,7 +55,7 @@ Iris.controller('StudentHistoricReportCtrl', function($scope, $state) {
 		values.push(parseFloat(Math.round(efficiency * 100) / 100).toFixed(2)); 
 	}
 
-	$scope.date.push(values);
+	$scope.data.push(values);
 
 	$scope.onValueClick = function (points, evt) {
 		var studentResult = $scope.results.filter(function(obj) {
