@@ -22,6 +22,10 @@ Iris.controller('ChangePasswordCtrl', function($scope, $state, $ionicLoading, $i
     };
 
     $scope.changePassword = function() {
+        $ionicLoading.show({
+            hideOnStateChange: true
+        });
+
         if($scope.userInfo.password == $scope.userInfo.confirmPassword){
             UserService.changePassword($scope.user.id, $scope.userInfo.password).success(function(user) {
                 $state.go("users");

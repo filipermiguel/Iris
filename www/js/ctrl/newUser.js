@@ -7,6 +7,10 @@ Iris.controller('NewUserCtrl', function($scope, $state, $ionicLoading, $ionicPop
     };
 
     $scope.save = function() {
+        $ionicLoading.show({
+            hideOnStateChange: true
+        });
+
         if($scope.user.password == $scope.user.confirmPassword){
             UserService.createUser($scope.user.name, $scope.user.confirmPassword).success(function(user) {
                 $state.go("users");

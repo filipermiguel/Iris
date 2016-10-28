@@ -27,7 +27,9 @@ Iris.controller('ChooseTestReportCtrl', function($scope, $state, $ionicLoading, 
     	endDate: today
     };
 
+    $ionicLoading.show();
     TestService.getTests().then(function(tests) {
+        $ionicLoading.hide();
         $scope.tests = tests;
     });
 

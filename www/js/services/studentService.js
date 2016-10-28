@@ -32,6 +32,8 @@ Iris.service('StudentService', ['$http', '$q', 'CacheFactory', function ($http, 
         $http.post(urlBase + "create", student).success(function () {
             studentCache.put(student.rg.toString(), student);
             deferred.resolve(student);
+        }).error(function() {
+            deferred.resolve(null);
         });
 
         return deferred.promise;

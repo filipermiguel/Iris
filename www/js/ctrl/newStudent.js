@@ -1,4 +1,4 @@
-Iris.controller('NewStudentCtrl', function($scope, $state, StudentService) {
+Iris.controller('NewStudentCtrl', function($scope, $state, $ionicLoading, $ionicPopup, StudentService) {
 
     $scope.student = {
         rg: null,
@@ -7,11 +7,21 @@ Iris.controller('NewStudentCtrl', function($scope, $state, StudentService) {
     };
 
 	$scope.save = function() {
-        var successFunction = function() {
-            $state.go('menu');
-        };
+        $ionicLoading.show({
+            hideOnStateChange: true
+        });
 
-		StudentService.createStudent($scope.student).then(successFunction);
+		StudentService.createStudent($scope.student).then(function(data) {
+            if (data) {
+                $state.go('menu');
+            } else {
+                $ionicLoading.hide();
+                $ionicPopup.alert({
+                    title: 'Falha no cadastro.',
+                    template: 'RG já cadastrado.'
+                });
+            }
+        });
 	}
 
     $scope.cancel = function(){

@@ -24,7 +24,9 @@ Iris.controller('ChooseStudentHistoricReportCtrl', function($scope, $state, $ion
 	}
 
 	$scope.onSelectStudent = function() {
+		$ionicLoading.show();
 		StudentService.getStudentTestsDone($scope.searchStudent.selected.rg).success(function(studentTests) {
+			$ionicLoading.hide();
 			$scope.searchTest.selected = null;
 			if(studentTests.length > 0){
 				$scope.tests = studentTests;
@@ -39,7 +41,9 @@ Iris.controller('ChooseStudentHistoricReportCtrl', function($scope, $state, $ion
 	}
 
 	$scope.onSelectTest = function() {
+		$ionicLoading.show();
 		StudentService.getStudentTestDoneListDates($scope.searchStudent.selected.rg, $scope.searchTest.selected.id).success(function(testResults) {
+			$ionicLoading.hide();
 			if(testResults.length > 0){
 				$scope.testResults = testResults;
 				for(i = 0; i < testResults.length; i++){

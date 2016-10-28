@@ -4,7 +4,9 @@ Iris.controller('ChooseResultReportCtrl', function($scope, $state, $ionicLoading
 	$scope.efficiency = $state.params.efficiency;
 	$scope.period = $state.params.period;
 
+	$ionicLoading.show();
 	TestService.getResults($scope.test, $scope.efficiency, $scope.period).success(function(results) {
+		$ionicLoading.hide();
         $scope.results = results;
     });
 

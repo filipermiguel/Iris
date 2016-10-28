@@ -3,6 +3,9 @@ Iris.controller('LoginCtrl', function($scope, UserService, $ionicPopup, $ionicLo
     $scope.loginData = {};
 
     $scope.login = function() {
+        $ionicLoading.show({
+            hideOnStateChange: true
+        });
         UserService.login($scope.loginData.name, $scope.loginData.password).success(function(user) {
             UserService.saveUser(user);
             $state.go("menu");

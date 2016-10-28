@@ -3,15 +3,24 @@ Iris.controller('ChooseStudentTestCtrl', function($scope, $state, $ionicLoading,
 	$scope.searchStudent = {};
 	$scope.searchTest = {};
 
+    $ionicLoading.show();
+
 	StudentService.getStudents().then(function(students) {
 		$scope.students = students;
+        if ($scope.tests) {
+            $ionicLoading.hide();
+        }
 	});
 
 	TestService.getTests().then(function(tests) {
         $scope.tests = tests;
+        if ($scope.students) {
+            $ionicLoading.hide();
+        }
     });
 
 	$scope.executeTest = function() {
+        $ionicLoading.show({hideOnStateChange: true});
         var isExecuteTest = true;
         TestService.studentHasResultToday($scope.searchTest.selected, $scope.searchStudent.selected.rg).success(function(hasResult) {
             if(!hasResult) {
@@ -25,17 +34,17 @@ Iris.controller('ChooseStudentTestCtrl', function($scope, $state, $ionicLoading,
                 });
             }
         });
-    }
+    };
 
    	$scope.isBeginTestDisabled = function() {
         if($scope.searchStudent.selected && $scope.searchTest.selected){
         	return false;
         }
         return true;
-    }
+    };
 
     $scope.back = function() {
         $ionicLoading.show({hideOnStateChange: true});
         $state.go('menu');
-    }
+    };
 })

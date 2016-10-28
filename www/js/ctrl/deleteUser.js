@@ -2,6 +2,12 @@ Iris.controller('DeleteUserCtrl', function($scope, $state, $ionicLoading, $ionic
 
     $scope.searchUser = {};
 
+    $ionicLoading.show();
+    UserService.getUsers().success(function(users) {
+        $scope.users = users;
+        $ionicLoading.hide();
+    });
+
     $scope.deleteUser = function() {
         if ($scope.searchUser.selected.name == "admin") {
             $ionicLoading.hide();
@@ -24,10 +30,6 @@ Iris.controller('DeleteUserCtrl', function($scope, $state, $ionicLoading, $ionic
             });
         }
     };
-
-    UserService.getUsers().success(function(users) {
-        $scope.users = users;
-    });
 
     $scope.isDeleteUserDisabled = function() {
         if ($scope.searchUser.selected) {

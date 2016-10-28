@@ -29,7 +29,9 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
     
     
 	if($state.params.id) {
+        $ionicLoading.show();
 		TestService.getTest($state.params.id).then(function(test) {
+            $ionicLoading.hide();
 			$scope.test = test;
 
             $scope.currentQuestion = $scope.test.questions[0];
@@ -62,7 +64,7 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
 
             var result = {
                 question: $scope.currentQuestion.id,
-                answer: $scope.currentQuestion.questions[$scope.selectedAlternative.index].id,
+                answer: $scope.currentQuestion.alternatives[$scope.selectedAlternative.index].id,
                 isCorrect: false
             };
 
@@ -75,7 +77,9 @@ Iris.controller('ExecuteTestCtrl', function($scope, $state, $ionicLoading, $ioni
         if($scope.infoTest.questionIndex > 0 && $scope.infoTest.questionIndex < $scope.test.questions.length){
             $scope.currentQuestion = $scope.test.questions[$scope.infoTest.questionIndex];
 
+            $ionicLoading.show();
             TestService.getQuestionImage($state.params.id, $scope.currentQuestion.id).then(function(image) {
+                $ionicLoading.hide();
                 if (image) {
                     $scope.questionImage = "data:image/jpg;base64," + image;
                 }

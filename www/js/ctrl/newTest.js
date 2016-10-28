@@ -62,7 +62,9 @@ Iris.controller('NewTestCtrl', function($scope, $cordovaCamera, $cordovaFile, $s
         $scope.selectedAlternative.index = $scope.selectedQuestion.correctAlternative;
         if($scope.isEditing){
             TestService.getQuestionImage($scope.test.id, question.id).then(function(image) {
-                $scope.currentImage = "data:image/jpg;base64," + image;
+                if (image) {
+                    $scope.currentImage = "data:image/jpg;base64," + image;
+                }
                 $scope.questionModal.show();
             });
         } else {

@@ -1,7 +1,9 @@
 Iris.controller('TestsCtrl', function($scope, $state, $ionicLoading, $ionicPopup, TestService) {
 
+    $ionicLoading.show();
 	TestService.getTests().then(function(tests) {
         $scope.tests = tests;
+        $ionicLoading.hide();
     });
 
 	$scope.deleteTest = function(test, index) {

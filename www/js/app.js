@@ -1,4 +1,4 @@
-var serverAddress = "http://192.168.0.12:8080/iris-server";
+var serverAddress = "http://177.35.4.141:8080/iris-server";
 
 Iris = angular.module('Iris', ['ionic', 'ngCordova', 'ui.select', 'rzModule', 'chart.js', 'ngMessages', 'monospaced.elastic', 'angular-cache' ])
 

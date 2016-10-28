@@ -1,4 +1,4 @@
-Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, TestService) {
+Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ionicLoading, TestService) {
 
 	$scope.result = $state.params.result;
 	$scope.historicResults = $state.params.historicResults;
@@ -50,8 +50,10 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, TestS
 
 		$scope.studentAnswer = alternative[0];
 
+		$ionicLoading.show();
         TestService.getQuestionImage($scope.result.test.id, $scope.selectedQuestion.id).then(function(image) {
            $scope.questionImage = image;
+           $ionicLoading.hide();
         });
 
 		$scope.questionModal.show();
@@ -63,6 +65,7 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, TestS
 	}
 
 	$scope.backReports = function(){
+		$ionicLoading.show({hideOnStateChange: true});
 		if($scope.origin == "TEST"){
 			$state.go('choose-test-report');
 		} else if($scope.origin == "STUDENT"){
