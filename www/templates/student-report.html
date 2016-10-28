@@ -29,12 +29,12 @@
                     <div class="bar bar-header bar-positive">
                         <h1 class="title">{{result.test.name}}</h1>
                     </div>
-                    <ion-content class="padding has-header">
+                    <ion-content class="padding has-header iris-background">
                         <div class="card">
                             <div class="item item-text-wrap">{{selectedQuestion.name}}</div>
                         </div>
-                        <div class="card" style="text-align: center">
-                            <img ng-src="data:image/jpg;base64,{{questionImage}}" ng-show="questionImage" width="100%" />
+                        <div style="margin-top: 20px; width: 100%; text-align: center; max-height: 400px;">
+                            <img ng-src="{{questionImage}}" ng-show="questionImage" style="max-width: 100%; max-height:400px; width: auto; height: auto;"/>
                         </div>
                         <div class="card">
                             <div class="item item-divider">Alternativa correta: </div>

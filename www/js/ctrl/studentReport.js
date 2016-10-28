@@ -6,6 +6,7 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ioni
 	$scope.resultInfo = JSON.parse($scope.result.result);
 	$scope.selectedQuestion = {};
 	$scope.studentAnswer = {};
+	$scope.questionImage = null;
 
 	if($scope.resultInfo){
 		var score = 0;
@@ -35,7 +36,7 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ioni
 		} else {
 			return { "background-color": "rgb(255,206,207)" };
 		}
-	} 
+	};
 
 	$scope.questionClicked = function(question) {
 		$scope.selectedQuestion = question;
@@ -52,8 +53,10 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ioni
 
 		$ionicLoading.show();
         TestService.getQuestionImage($scope.result.test.id, $scope.selectedQuestion.id).then(function(image) {
-           $scope.questionImage = image;
-           $ionicLoading.hide();
+        	if (image) {
+				$scope.questionImage = "data:image/jpg;base64," + image;
+        	}
+          	$ionicLoading.hide();
         });
 
 		$scope.questionModal.show();
@@ -61,8 +64,9 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ioni
 
 	$scope.back = function() {
 		$scope.selectedQuestion = {};
+		$scope.questionImage = null;
 		$scope.questionModal.hide();
-	}
+	};
 
 	$scope.backReports = function(){
 		$ionicLoading.show({hideOnStateChange: true});
@@ -75,5 +79,5 @@ Iris.controller('StudentReportCtrl', function($scope, $state, $ionicModal, $ioni
 		} else {
 			$state.go('reports');
 		}
-	}
+	};
 })
