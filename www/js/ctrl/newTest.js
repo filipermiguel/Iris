@@ -133,8 +133,7 @@ Iris.controller('NewTestCtrl', function($scope, $cordovaCamera, $cordovaFile, $s
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             allowEdit: false,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
+            encodingType: Camera.EncodingType.JPEG
         };
 
         $cordovaCamera.getPicture(options).then(function(imageData) {
@@ -164,7 +163,7 @@ Iris.controller('NewTestCtrl', function($scope, $cordovaCamera, $cordovaFile, $s
         }
         return true;
     }
-
+    
     $scope.cancel = function(){
         $state.go('tests');
     }

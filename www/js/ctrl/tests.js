@@ -1,6 +1,7 @@
-Iris.controller('TestsCtrl', function($scope, $state, $ionicLoading, $ionicPopup, TestService) {
+Iris.controller('TestsCtrl', function($scope, $state, $ionicLoading, $ionicPopup, TestService, UserService) {
 
     $ionicLoading.show();
+
 	TestService.getTests().then(function(tests) {
         $scope.tests = tests;
         $ionicLoading.hide();
@@ -18,11 +19,16 @@ Iris.controller('TestsCtrl', function($scope, $state, $ionicLoading, $ionicPopup
                 });
             }
         });
-    }
+    };
+
+    $scope.isAdmin = function(){
+        var currentUser = UserService.getCurrentUser();
+        return currentUser && currentUser.name == "admin" ? true : false;
+    };
 
 	$scope.back = function() {
         $ionicLoading.show({hideOnStateChange: true});
         $state.go('menu');
-    }
+    };
 
 });

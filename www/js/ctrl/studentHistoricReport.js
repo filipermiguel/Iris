@@ -19,12 +19,12 @@ Iris.controller('StudentHistoricReportCtrl', function($scope, $state) {
 		onAnimationComplete: function () {
             var ctx = this.chart.ctx;
         	ctx.font = this.scale.font;
-        	ctx.fillStyle = this.scale.textColor
+        	ctx.fillStyle = this.scale.textColor;
         	ctx.textAlign = "center";
         	ctx.textBaseline = "bottom";
 
-        	this.datesets.forEach(function (dateset) {
-            	dateset.points.forEach(function (points) {
+        	this.datasets.forEach(function (dataset) {
+            	dataset.points.forEach(function (points) {
                 	ctx.fillText(points.value + "%", points.x, points.y - 10);
             	});
         	})

@@ -8,11 +8,11 @@
         <ion-list>
             <ion-item class="item-remove-animate item-text-wrap item-icon-right" ng-repeat="test in tests | orderBy:'name'" type="item-text-wrap" href="#/new-test/{{test.id}}">
                 <p>{{test.name}}</p>
-                <i class="icon ion-chevron-left icon-accessory"></i>
-                <ion-option-button class="button-assertive" ng-click="deleteTest(test, (($index)))">Remover</ion-option-button>
+                <i class="icon ion-chevron-left icon-accessory" ng-show="isAdmin()"></i>
+                <ion-option-button class="button-assertive" ng-show="isAdmin()" ng-click="deleteTest(test, (($index)))">Remover</ion-option-button>
             </ion-item>
         </ion-list>
-        <button class="button button-block iris-button" style="margin-top: 40px" ng-click="back()">Voltar</button>
+        <button class="button button-block iris-button" style="margin-top: 20px" ng-click="back()">Voltar</button>
     </div>
     </ion-content>
 </ion-view>
