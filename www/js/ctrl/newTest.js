@@ -132,8 +132,10 @@ Iris.controller('NewTestCtrl', function($scope, $cordovaCamera, $cordovaFile, $s
         var options = {
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            allowEdit: false,
-            encodingType: Camera.EncodingType.JPEG
+            encodingType: Camera.EncodingType.JPEG,
+            quality: 100, 
+            targetWidth: 400,
+            targetHeight: 400,
         };
 
         $cordovaCamera.getPicture(options).then(function(imageData) {
