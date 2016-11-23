@@ -167,7 +167,7 @@ Iris.controller('NewTestCtrl', function($scope, $cordovaCamera, $cordovaFile, $s
     }
     
     $scope.cancel = function(){
-        $state.go('tests');
+        $state.go('menu');
     }
 
     $scope.deleteQuestion = function(index) {
